@@ -1,13 +1,84 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.main-page {
+    width: 75%;
+    margin: auto;
+    padding: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.get-started-btn {
+    width: max-content;
+    margin: auto;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-hidden {
+    display: none;
+}
+
+.right-btn-group {
+    float: right;
+}
+
+hr.solid {
+    border-top: 0.1px solid #bbb;
+}
+
+
+/* The Modal (background) */
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-heading {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 40px 40px 0px 40px;
+    height: max-content;
+    width: 35%;
+}
+
+.modal-heading h3 {
+    margin: 0;
+}
+
+.modal-body {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 40px;
+    max-height: 400px;
+    width: 35%;
+    overflow: auto;
+}
+
+.modal-footer {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 40px 40px 80px 40px;
+    height: max-content;
+    width: 35%;
+}
+
+.button-link {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
 }
