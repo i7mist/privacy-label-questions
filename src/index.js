@@ -1,13 +1,83 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import dataCategoryTooltip from "./data";
 
-class OverviewPage extends React.Component {
+class DataTypeEditSection extends React.Component {
     render() {
+        let dataCategoryList = []
+        for (let i = 0 ; i < this.props.privacyAnswers.length ; i++) {
+            const dataTypeDict = this.props.privacyAnswers[i]
+            const dataTypeKey = Object.keys(dataTypeDict)[0]
+            const dataTypeValue = dataTypeDict[dataTypeKey]
+            const newDataCategoryList = dataTypeValue.map((d) => {
+                return Object.keys(d)[0]
+            })
+            dataCategoryList = dataCategoryList.concat(newDataCategoryList)
+        }
+        const dataTypeSummary = `${dataCategoryList.length} data types collected from this app: ` + dataCategoryList.join(", ")
         return (
             <div>
                 <h3>Data Types</h3>
                 <button className="button-link" onClick={this.props.clickEdit}>Edit</button>
+                <div>{dataTypeSummary}</div>
+            </div>
+        );
+    }
+}
+
+class DataCategoryOverview extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            show: false
+        }
+        this.myRef = React.createRef();
+        // const target = useRef(null);
+    }
+    render() {
+        let categoryName = Object.keys(this.props.category)[0]
+        let categoryDetails = this.props.category[Object.keys(this.props.category)[0]]
+        return (
+            <div>
+                <span>{categoryName}</span>
+                <span className={"question-mark-circle"} ref={this.myRef} onClick={() => this.setState({show: !this.state.show})}>?</span>
+                <Overlay target={this.myRef.current} show={this.state.show} placement="right">
+                    {(props) => (
+                        <Tooltip id={"overlay-example"} {...props}>
+                            {dataCategoryTooltip[categoryName]}
+                        </Tooltip>
+                    )}
+                </Overlay>
+            </div>
+        )
+    }
+}
+
+class DataTypeOverview extends React.Component {
+    render() {
+        let title = Object.keys(this.props.dataTypeAnswers)[0]
+        let categories = this.props.dataTypeAnswers[title]
+        return (
+            <div>
+                <hr className="solid"/>
+                <h4>{title}</h4>
+                {categories.map((category) =>
+                    <DataCategoryOverview category={category}/>
+                )}
+            </div>
+        );
+    }
+}
+
+class PrivacyOverviewSection extends React.Component {
+    render() {
+        return (
+            <div>
+                {this.props.privacyAnswers[0] && this.props.privacyAnswers.map((dataType) => <DataTypeOverview dataTypeAnswers={dataType}/>)}
             </div>
         );
     }
@@ -131,7 +201,13 @@ class MainPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            privacyAnswers: [], // [{"Contact Info": [{"name": {"purposes": [], "is_linked": null, "is_tracked": null}}]}],
+            privacyAnswers: [
+                {"Contact Info":
+                    [{"Other User Contact Info": {"purposes": [], "is_linked": null, "is_tracked": null}},
+                    {"Name": {"purposes": [], "is_linked": null, "is_tracked": null}},
+                    {"Email Address": {"purposes": [], "is_linked": null, "is_tracked": null}}]
+                },
+                {"Health & Fitness": [{"Health": {"purposes": [], "is_linked": null, "is_tracked": null}}]}], //[]
             collectionDialogDisplay: false
         }
         this.dataCollectionDialogRef = React.createRef();
@@ -163,8 +239,10 @@ class MainPage extends React.Component {
                     }}
                 />
                 {this.state.privacyAnswers.length ?
-                    <OverviewPage clickEdit={openDataCollectionDialog} privacyAnswers={this.state.privacyAnswers}/> :
+                    <DataTypeEditSection clickEdit={openDataCollectionDialog} privacyAnswers={this.state.privacyAnswers}/> :
                     <OnboardPage clickGetStarted={openDataCollectionDialog}/>}
+                {this.state.privacyAnswers.length &&
+                    <PrivacyOverviewSection privacyAnswers={this.state.privacyAnswers}/>}
             </div>
         );
     }
