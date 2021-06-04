@@ -9,16 +9,20 @@ import dataCategoryTooltip from "./data";
 class DataTypeEditSection extends React.Component {
     render() {
         let dataCategoryList = []
-        for (let i = 0 ; i < this.props.privacyAnswers.length ; i++) {
-            const dataTypeDict = this.props.privacyAnswers[i]
-            const dataTypeKey = Object.keys(dataTypeDict)[0]
-            const dataTypeValue = dataTypeDict[dataTypeKey]
-            const newDataCategoryList = dataTypeValue.map((d) => {
-                return Object.keys(d)[0]
-            })
-            dataCategoryList = dataCategoryList.concat(newDataCategoryList)
+        if (this.props.privacyAnswers.length > 0 && this.props.privacyAnswers[0]) {
+            for (let i = 0; i < this.props.privacyAnswers.length; i++) {
+                const dataTypeDict = this.props.privacyAnswers[i]
+                const dataTypeKey = Object.keys(dataTypeDict)[0]
+                const dataTypeValue = dataTypeDict[dataTypeKey]
+                const newDataCategoryList = dataTypeValue.map((d) => {
+                    return Object.keys(d)[0]
+                })
+                dataCategoryList = dataCategoryList.concat(newDataCategoryList)
+            }
         }
-        const dataTypeSummary = `${dataCategoryList.length} data types collected from this app: ` + dataCategoryList.join(", ")
+        const dataTypeSummary = dataCategoryList.length > 0 ?
+            `${dataCategoryList.length} data types collected from this app: ` + dataCategoryList.join(", "):
+            "Data is not collected from this app.";
         return (
             <div>
                 <h3>Data Types</h3>
@@ -136,11 +140,11 @@ class DataCollectionQuestion extends React.Component {
 }
 
 class DataCollectionDialog extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
-            isStarted: false,
-            isComplete: false,
+            isStarted: props.privacyAnswers.length > 0,
+            isNoCollection: false,
         }
         this.dataCollectionQuestionRef = React.createRef()
     }
@@ -177,7 +181,7 @@ class DataCollectionDialog extends React.Component {
                         handleGlobalChange={(e)=>{
                             this.setState({
                                 isStarted: true,
-                                isComplete: e.target.value === "not_collecting_data"
+                                isNoCollection: e.target.value === "not_collecting_data"
                             })
                         }}
                     />
@@ -186,7 +190,7 @@ class DataCollectionDialog extends React.Component {
                     <div className="right-btn-group">
                         <button onClick={this.props.clickCancel}>Cancel</button>
                         {
-                            this.state.isComplete?
+                            this.state.isNoCollection?
                             <button onClick={this.props.clickSave}>Save</button>:
                             <button onClick={() => {}} disabled={!this.state.isStarted}>Next</button>
                         }
