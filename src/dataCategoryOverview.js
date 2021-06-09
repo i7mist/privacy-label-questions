@@ -1,7 +1,7 @@
 import React from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
-import dataCategoryTooltip from "./data";
+import {dataCategoryTooltip} from "./data";
 
 export class DataCategoryOverview extends React.Component {
     constructor() {

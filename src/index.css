@@ -43,7 +43,7 @@ hr.solid {
 
 
 /* The Modal (background) */
-.modal {
+.my-modal {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
@@ -57,7 +57,7 @@ hr.solid {
 }
 
 /* Modal Content */
-.modal-heading {
+.my-modal-heading {
     background-color: #fefefe;
     margin: auto;
     padding: 40px 40px 0px 40px;
@@ -65,11 +65,11 @@ hr.solid {
     width: 50%;
 }
 
-.modal-heading h3 {
+.my-modal-heading h3 {
     margin: 0;
 }
 
-.modal-body {
+.my-modal-body {
     background-color: #fefefe;
     margin: auto;
     padding: 40px;
@@ -78,12 +78,13 @@ hr.solid {
     overflow: auto;
 }
 
-.modal-footer {
+.my-modal-footer {
     background-color: #fefefe;
     margin: auto;
     padding: 40px 40px 80px 40px;
     height: max-content;
     width: 50%;
+    display: block;
 }
 
 .button-link {
@@ -96,4 +97,66 @@ hr.solid {
     color: #069;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.icon-style {
+    height: 20px;
+    width: 20px;
+}
+
+.checkbox-option-icon {
+    margin-right: 10px;
+}
+
+.checkbox-option-header-icon {
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+
+.checkbox-option-header-label {
+    margin-left: 55px;
+    padding: 0;
+    font-size: small;
+    color: #555555;
+}
+
+.checkbox-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.checkbox-option {
+    /*margin-left: 20px;*/
+    margin-bottom: 10px;
+}
+
+.checkbox-option {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.checkbox-option-name {
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-size: small;
+    font-weight: 500;
+}
+
+.checkbox-option-label {
+    margin-left: 25px;
+    padding: 0;
+    font-size: small;
+    color: #555555;
+}
+
+.description-title {
+    font-size: 15pt;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.description-text {
+    font-size: small;
+    color: #555555;
 }

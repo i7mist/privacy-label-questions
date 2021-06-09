@@ -3,25 +3,22 @@ import {DataCollectionQuestion} from "./dataCollectionQuestion";
 
 export class DataCollectionDialog extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             isStarted: props.privacyAnswers.length > 0,
-            isNoCollection: false,
+            isNoCollection: props.privacyAnswers.length > 0 && props.privacyAnswers[0] === null,
+            checked: !props.privacyAnswers.length ? null :
+                props.privacyAnswers[0] ? "collecting_data" : "not_collecting_data"
         }
-        this.dataCollectionQuestionRef = React.createRef()
-    }
-
-    loadState() {
-        this.dataCollectionQuestionRef.current.loadState()
     }
 
     render() {
         return (
-            <div className={"modal " + (this.props.dialogDisplay === true ? "display-block" : "display-hidden")}>
-                <div className="modal-heading">
+            <div className={"my-modal " + (this.props.dialogDisplay === true ? "display-block" : "display-hidden")}>
+                <div className="my-modal-heading">
                     <h3>Data Collection</h3>
                 </div>
-                <div className="modal-body">
+                <div className="my-modal-body description-text">
                     Thanks for helping users understand your app's privacy practices. Remember that you're responsible
                     for any third-party code that is added to your app, so if your third-party partners collect data
                     from your app, you must represent that in your responses.
@@ -44,24 +41,32 @@ export class DataCollectionDialog extends React.Component {
                     <hr className="solid"/>
                     <p/>
                     <DataCollectionQuestion
-                        ref={this.dataCollectionQuestionRef}
                         privacyAnswers={this.props.privacyAnswers}
+                        checked={this.state.checked}
                         handleGlobalChange={(e) => {
                             this.setState({
                                 isStarted: true,
-                                isNoCollection: e.target.value === "not_collecting_data"
+                                isNoCollection: e.target.value === "not_collecting_data",
+                                checked: e.target.value
                             })
                         }}
                     />
                 </div>
-                <div className="modal-footer">
+                <div className="my-modal-footer">
                     <div className="right-btn-group">
-                        <button onClick={this.props.clickCancelCollectionDialog}>Cancel</button>
+                        <button onClick={()=>{
+                            this.setState({
+                                checked: !this.props.privacyAnswers.length ? null :
+                                    this.props.privacyAnswers[0] ? "collecting_data" : "not_collecting_data"
+                            })
+                            this.props.cancelCollectionDialog()
+                        }}>Cancel</button>
                         {
                             this.state.isNoCollection ?
                                 <button onClick={this.props.clickSave}>Save</button> :
                                 <button onClick={() => {
-                                    this.props.clickCancel()
+                                    this.props.cancelCollectionDialog()
+                                    this.props.openTypeDialog()
                                 }} disabled={!this.state.isStarted}>Next</button>
                         }
                     </div>

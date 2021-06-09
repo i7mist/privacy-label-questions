@@ -1,4 +1,57 @@
-const dataCategoryTooltip = {
+import contactInfoIcon from "./images/contact-info.svg";
+import healthInfoIcon from "./images/health-info.svg";
+import financialInfoIcon from "./images/financial-info.svg"
+import locationIcon from "./images/location.svg"
+import sensitiveInfoIcon from "./images/sensitive-info.svg"
+import contactsIcon from "./images/contacts.svg"
+import userContentIcon from "./images/user-content.svg"
+import browserHistoryIcon from "./images/browsing-history.svg"
+import searchHistoryIcon from "./images/search-history.svg"
+import identifiersIcon from "./images/identifiers.svg"
+import purchasesIcon from "./images/purchase-history.svg"
+import usageDataIcon from "./images/usage-data.svg"
+import diagnosticsIcon from "./images/diagnostics.svg"
+import otherDataIcon from "./images/other-data.svg"
+
+export const dataTypeOrderList = ["Contact Info", "Health & Fitness", "Financial Info", "Location", "Sensitive Info",
+    "Contacts", "User Content", "Browsing History", "Search History", "Identifiers", "Purchases", "Usage Data",
+    "Diagnostics", "Other Data"]
+
+export const dataTypeCategoryMapping = {
+    "Contact Info": ["Name", "Email Address", "Phone Number", "Physical Address", "Other User Contact Info"],
+    "Health & Fitness": ["Health", "Fitness"],
+    "Financial Info": ["Payment Info", "Credit Info", "Other Financial Info"],
+    "Location": ["Precise Location", "Coarse Location"],
+    "Sensitive Info": ["Sensitive Info"],
+    "Contacts": ["Contacts"],
+    "User Content": ["Emails or Text Messages", "Photos or Videos", "Audio Data", "Gameplay Content", "Customer Support", "Other User Content"],
+    "Browsing History": ["Browsing History"],
+    "Search History": ["Search History"],
+    "Identifiers": ["User ID", "Device ID"],
+    "Purchases": ["Purchase History"],
+    "Usage Data": ["Product Interaction", "Advertising Data", "Other Usage Data"],
+    "Diagnostics": ["Crash Data", "Performance Data", "Other Diagnostic Data"],
+    "Other Data": ["Other Data Types"]
+}
+
+export const dataTypeIconMapping = {
+    "Contact Info": contactInfoIcon,
+    "Health & Fitness": healthInfoIcon,
+    "Financial Info": financialInfoIcon,
+    "Location": locationIcon,
+    "Sensitive Info": sensitiveInfoIcon,
+    "Contacts": contactsIcon,
+    "User Content": userContentIcon,
+    "Browsing History": browserHistoryIcon,
+    "Search History": searchHistoryIcon,
+    "Identifiers": identifiersIcon,
+    "Purchases": purchasesIcon,
+    "Usage Data": usageDataIcon,
+    "Diagnostics": diagnosticsIcon,
+    "Other Data": otherDataIcon
+}
+
+export const dataCategoryTooltip = {
     "Name": "Such as first or last name",
     "Email Address": "Including but not limited to a hashed email address",
     "Phone Number": "Including but not limited to a hashed phone number",
@@ -23,14 +76,13 @@ const dataCategoryTooltip = {
     "Search History": "Information about searches performed in the app",
     "User ID": "Such as screen name, handle, account ID, assigned user ID, customer number, probabilistic identifier, or other user- or account-level ID that can be used to identify a particular user or account",
     "Device ID": "Such as the device's advertising identifier, or other device-level ID",
-    "Purchases": "An account's or individual's purchases or purchase tendencies",
+    "Purchase History": "An account's or individual's purchases or purchase tendencies",
     "Product Interaction": "Such as app launches, taps, clicks, scrolling information, music listening data, video views, saved place in a game, video, or song, or other information about how the user interacts with the app",
     "Advertising Data": "Such as information about the advertisements the user has seen",
     "Other Usage Data": "Any other data about user activity in the app",
     "Crash Data": "Such as crash logs",
     "Performance Data": "Such as launch time, hang rate, or energy use",
     "Other Diagnostic Data": "Any other data collected for the purposes of measuring technical diagnostics related to the app",
-    "Other Data": "Any other data types not mentioned"
+    "Other Data Types": "Any other data types not mentioned"
 };
 
-export default dataCategoryTooltip;
