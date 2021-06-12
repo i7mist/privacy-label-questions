@@ -19,8 +19,8 @@ export class DataTypeEditSection extends React.Component {
             "Data is not collected from this app.";
         return (
             <div>
-                <h3>Data Types</h3>
-                <button className="button-link" onClick={this.props.clickEdit}>Edit</button>
+                <h3 className={"display-inline-block"}>Data Types</h3>
+                <button className="display-inline-block button-link" onClick={this.props.clickEdit}>Edit</button>
                 <div>{dataTypeSummary}</div>
             </div>
         );

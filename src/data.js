@@ -13,6 +13,55 @@ import usageDataIcon from "./images/usage-data.svg"
 import diagnosticsIcon from "./images/diagnostics.svg"
 import otherDataIcon from "./images/other-data.svg"
 
+export const purposeOrderList = [
+    "Third-Party Advertising", "Developer's Advertising or Marketing", "Analytics",
+    "Product Personalization", "App Functionality", "Other Purposes"
+]
+
+export const purposeLabelMapping = {
+    "Third-Party Advertising": "Such as displaying third-party ads in your app, or sharing data with entities who display third-party ads",
+    "Developer's Advertising or Marketing": "Such as displaying first-party ads in your app, sending marketing communications directly to your users, or sharing data with entities who will display your ads",
+    "Analytics": "Using data to evaluate user behavior, including to understand the effectiveness of existing product features, plan new features, or measure audience size or characteristics",
+    "Product Personalization": "Customizing what the user sees, such as a list of recommended products, posts, or suggestions",
+    "App Functionality": "Such as to authenticate the user, enable features, prevent fraud, implement security measures, ensure server up-time, minimize app crashes, improve scalability and performance, or perform customer support",
+    "Other Purposes": "Any other purpose not listed"
+}
+
+export const dataCategoryPluralFormMapping = {
+    "Name": "names",
+    "Email Address": "email addresses",
+    "Phone Number": "phone numbers",
+    "Physical Address": "physical addresses",
+    "Other User Contact Info": "other user contact info",
+    "Health": "health data",
+    "Fitness": "fitness data",
+    "Payment Info": "payment info",
+    "Credit Info": "credit info",
+    "Other Financial Info": "other financial info",
+    "Precise Location": "precise location data",
+    "Coarse Location": "coarse location data",
+    "Sensitive Info": "sensitive info",
+    "Contacts": "contacts",
+    "Emails or Text Messages": "emails or text messages",
+    "Photos or Videos": "photos or videos",
+    "Audio Data": "audio data",
+    "Gameplay Content": "gameplay content",
+    "Customer Support": "customer support data",
+    "Other User Content": "other user content",
+    "Browsing History": "browsing history data",
+    "Search History": "search history data",
+    "User ID": "user IDs",
+    "Device ID": "device IDs",
+    "Purchase History": "purchase history data",
+    "Product Interaction": "product interaction data",
+    "Advertising Data": "advertising data",
+    "Other Usage Data": "other usage data",
+    "Crash Data": "crash data",
+    "Performance Data": "performance data",
+    "Other Diagnostic Data": "other diagnostic data",
+    "Other Data Types": "other data"
+}
+
 export const dataTypeOrderList = ["Contact Info", "Health & Fitness", "Financial Info", "Location", "Sensitive Info",
     "Contacts", "User Content", "Browsing History", "Search History", "Identifiers", "Purchases", "Usage Data",
     "Diagnostics", "Other Data"]
