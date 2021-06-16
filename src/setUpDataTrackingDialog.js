@@ -16,11 +16,11 @@ export class SetUpDataTrackingDialog extends React.Component {
             </div>
             <div className="my-modal-body description-text">
                 <div>
-                    Finally, indicate if names will be used for tracking purposes.
+                    Finally, indicate if {dataCategoryPluralFormMapping[this.props.dataCategory]} will be used for tracking purposes.
                 </div>
                 <br/>
                 <div className="description-bold-text">
-                    Do you or your third-party partners use names for tracking purposes?
+                    Do you or your third-party partners use {dataCategoryPluralFormMapping[this.props.dataCategory]} for tracking purposes?
                 </div>
                 <br/>
                 <div>
