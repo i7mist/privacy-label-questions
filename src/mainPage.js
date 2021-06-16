@@ -13,11 +13,11 @@ import {SetUpDataTrackingDialog} from "./setUpDataTrackingDialog";
 const initPrivacyAnswers = [
     {
         "Contact Info":
-            [{"Other User Contact Info": {"purposes": [], "is_linked": null, "is_tracked": null}},
-                {"Name": {"purposes": [], "is_linked": null, "is_tracked": null}},
-                {"Email Address": {"purposes": [], "is_linked": null, "is_tracked": null}}]
+            [{"Other User Contact Info": {"purposes": ["Third-Party Advertising", "Developer's Advertising or Marketing", "App Functionality"], "is_linked": "data_linked", "is_tracked": "data_for_tracking"}},
+                {"Name": {"purposes": ["Product Personalization"], "is_linked": "data_linked", "is_tracked": "data_not_for_tracking"}},
+                {"Email Address": {"purposes": ["App Functionality"], "is_linked": "data_not_linked", "is_tracked": "data_not_for_tracking"}}]
     },
-    {"Health & Fitness": [{"Health": {"purposes": [], "is_linked": null, "is_tracked": null}}]}]
+    {"Health & Fitness": [{"Health": {"purposes": ["App Functionality", "Other Purposes"], "is_linked": "data_not_linked", "is_tracked": "data_not_for_tracking"}}]}]
 
 export class MainPage extends React.Component {
     constructor() {
