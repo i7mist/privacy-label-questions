@@ -7,7 +7,6 @@ export class DataTypeOverview extends React.Component {
         let categories = this.props.dataTypeAnswers[title]
         return (
             <div>
-                <hr className="solid"/>
                 <h4>{title}</h4>
                 <div>
                 {categories.map((category) =>

@@ -22,6 +22,7 @@ export class DataTypeEditSection extends React.Component {
                 <h3 className={"display-inline-block"}>Data Types</h3>
                 <button className="display-inline-block button-link" onClick={this.props.clickEdit}>Edit</button>
                 <div>{dataTypeSummary}</div>
+                <hr className="solid"/>
             </div>
         );
     }

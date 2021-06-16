@@ -9,6 +9,7 @@ import {SetUpDataLinkedDialog} from "./setUpDataLinkedDialog";
 import {TrackingDefinitionDialog} from "./trackingDefinitionDialog";
 import {TrackingExampleDialog} from "./trackingExampleDialog";
 import {SetUpDataTrackingDialog} from "./setUpDataTrackingDialog";
+import {ProductPagePreview} from "./productPagePreview";
 
 const initPrivacyAnswers = [
     {
@@ -303,6 +304,7 @@ export class MainPage extends React.Component {
                         console.log(this.state.privacyAnswers)
                     }}
                 />
+                {this.state.privacyAnswers.length ? <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null}
                 {this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}
                                          privacyAnswers={this.state.privacyAnswers}/> :
