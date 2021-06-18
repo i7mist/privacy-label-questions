@@ -276,6 +276,16 @@ hr.solid {
     font-size: small;
 }
 
+.warning-box {
+    border-radius: 5px;
+    background: #fffae5;
+    margin-top: 5px;
+    padding: 15px;
+    width: 500px;
+    height: 80px;
+    border: 1px solid #fff0b8;
+}
+
 .checkbox-purpose-option-name {
     margin-left: 10px;
     margin-bottom: 0;

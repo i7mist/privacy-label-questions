@@ -4,10 +4,10 @@ import {CategoryTooltip} from "./dataCategoryOverview";
 import chevronDownIcon from "./images/chevron-down.svg"
 import chevronRightIcon from "./images/chevron-right.svg"
 import {TrackingDefinitionText} from "./trackingDefinitionText";
+import warningIcon from "./images/warning.svg"
 
 export class SetUpDataTrackingDialog extends React.Component {
     render() {
-        // TODO: show the warning for tracking for health data
         return <div className={"my-modal " + (this.props.dialogDisplay === true ? "display-block" : "display-hidden")}>
             <div className="my-modal-heading">
                 <img className="display-inline-block large-icon-style modal-header-icon"
@@ -39,6 +39,13 @@ export class SetUpDataTrackingDialog extends React.Component {
                         <b>No</b>, we do not use {dataCategoryPluralFormMapping[this.props.dataCategory]} for tracking purposes
                     </label> <br/>
                 </div>
+                {(this.props.dataCategory === "Health") && (this.props.selectedForTracking === "data_for_tracking")
+                && <div className={"warning-box"}>
+                    <img className={"display-inline-block"} src={warningIcon} alt={"Warning"}/>
+                    Based on your response, your app may be in violation of guidelines 5.1.2 and 5.1.3 of the <a className={"display-inline-block"}
+                       href={"https://developer.apple.com/app-store/review/guidelines/#legal"} target="_blank"
+                        rel="noopener noreferrer">App Store Guidelines</a>.
+                </div>}
                 <br/>
                 <div id="expand-tracking-definition-example-icon" onClick={this.props.handleDefinitionExampleClick}>
                     {!this.props.expandedDefinitionAndExample && <img className={"expand-icon-style display-inline-block"}
