@@ -37,7 +37,8 @@ export class MainPage extends React.Component {
             selectedPurposes: [],
             selectedLinked: null,
             selectedForTracking: null,
-            expandedDefinitionAndExample: false
+            expandedDefinitionAndExample: false,
+            isFirstBlockCompleted: false
             //     initPrivacyAnswers.map((dataTypeDict) => {
             //     let dataType = Object.keys(dataTypeDict)[0]
             //     let categories = dataTypeDict[dataType]
@@ -73,6 +74,23 @@ export class MainPage extends React.Component {
                     }).flat() : []
             })
         }
+
+        let openSetUpDataTrackingDialog = () => {
+            this.setState({
+                setUpDataTrackingDialogDisplay: true,
+                selectedForTracking: getSelectedInfo(this.state.privacyAnswers,
+                    this.state.currentDataType, this.state.currentDataCategory, "is_tracked")
+            })
+        }
+
+        let openSetUpDataLinkedDialog = () => {
+            this.setState({
+                setDataCollectionLinkedDialogDisplay: true,
+                selectedLinked: getSelectedInfo(this.state.privacyAnswers,
+                    this.state.currentDataType, this.state.currentDataCategory, "is_linked")
+            })
+        };
+
         let onChangeCheckedState = (categoryId) => {
             return () => {
                 let checkedDataCategoriesState = this.state.checkedDataCategories
@@ -181,13 +199,7 @@ export class MainPage extends React.Component {
                             setDataCollectionPurposeDialogDisplay: false,
                         })
                     }}
-                    openSetUpDataLinkedDialog={() => {
-                        this.setState({
-                            setDataCollectionLinkedDialogDisplay: true,
-                            selectedLinked: getSelectedInfo(this.state.privacyAnswers,
-                                this.state.currentDataType, this.state.currentDataCategory, "is_linked")
-                        })
-                    }}
+                    openSetUpDataLinkedDialog={openSetUpDataLinkedDialog}
                 />
                 <SetUpDataLinkedDialog
                     dialogDisplay={this.state.setDataCollectionLinkedDialogDisplay}
@@ -200,10 +212,15 @@ export class MainPage extends React.Component {
                             setDataCollectionLinkedDialogDisplay: false,
                         })
                     }}
-                    openTrackingDefinitionDialog={() => {
-                        this.setState({
-                            trackingDefinitionDialogDisplay: true
-                        })
+                    openNextDialog={() => {
+                        if (!this.state.isFirstBlockCompleted) {
+                            this.setState({
+                                trackingDefinitionDialogDisplay: true
+                            })
+                        } else {
+                            openSetUpDataTrackingDialog()
+                        }
+
                     }}
                     openSetUpPurposeDialog={() => {
                         this.setState({
@@ -247,13 +264,7 @@ export class MainPage extends React.Component {
                             trackingDefinitionDialogDisplay: true
                         })
                     }}
-                    openSetUpDataTrackingDialog={() => {
-                        this.setState({
-                            setUpDataTrackingDialogDisplay: true,
-                            selectedForTracking: getSelectedInfo(this.state.privacyAnswers,
-                                this.state.currentDataType, this.state.currentDataCategory, "is_tracked")
-                        })
-                    }}
+                    openSetUpDataTrackingDialog={openSetUpDataTrackingDialog}
                 />
                 <SetUpDataTrackingDialog
                     dialogDisplay={this.state.setUpDataTrackingDialogDisplay}
@@ -272,10 +283,14 @@ export class MainPage extends React.Component {
                             setUpDataTrackingDialogDisplay: false
                         })
                     }}
-                    openTrackingExampleDialog={() => {
-                        this.setState({
-                            trackingExampleDialogDisplay: true
-                        })
+                    openPreviousDialog={() => {
+                        if (!this.state.isFirstBlockCompleted) {
+                            this.setState({
+                                trackingExampleDialogDisplay: true
+                            })
+                        } else {
+                            openSetUpDataLinkedDialog()
+                        }
                     }}
                     saveAnswers={() => {
                         let i, j
@@ -299,7 +314,8 @@ export class MainPage extends React.Component {
                             }
                         }
                         this.setState({
-                            privacyAnswers: privacyAnswers
+                            privacyAnswers: privacyAnswers,
+                            isFirstBlockCompleted: true
                         })
                         console.log(this.state.privacyAnswers)
                     }}

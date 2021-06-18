@@ -76,7 +76,7 @@ export class SetUpDataLinkedDialog extends React.Component {
                             disabled={this.props.selectedLinked === null}
                             onClick={()=>{
                                 this.props.cancelSetUpDataLinkedDialog()
-                                this.props.openTrackingDefinitionDialog()
+                                this.props.openNextDialog()
                             }}>Next</button>
                     <button className="right-btn-group" onClick={this.props.cancelSetUpDataLinkedDialog}>Cancel</button>
                 </div>

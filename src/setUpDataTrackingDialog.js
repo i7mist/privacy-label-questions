@@ -7,6 +7,7 @@ import {TrackingDefinitionText} from "./trackingDefinitionText";
 
 export class SetUpDataTrackingDialog extends React.Component {
     render() {
+        // TODO: show the warning for tracking for health data
         return <div className={"my-modal " + (this.props.dialogDisplay === true ? "display-block" : "display-hidden")}>
             <div className="my-modal-heading">
                 <img className="display-inline-block large-icon-style modal-header-icon"
@@ -74,7 +75,7 @@ export class SetUpDataTrackingDialog extends React.Component {
                 <div>
                     <button className={"mr-auto"} onClick={() => {
                         this.props.cancelSetUpDataTrackingDialog()
-                        this.props.openTrackingExampleDialog()
+                        this.props.openPreviousDialog()
                     }}>Back</button>
                     <button className="right-btn-group" disabled={this.props.selectedForTracking===null} onClick={() => {
                         this.props.saveAnswers()
