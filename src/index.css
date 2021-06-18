@@ -210,7 +210,7 @@ hr.solid {
 }
 
 .display-inline-block {
-    display: inline-block
+    display: inline-block;
 }
 
 .review-category {
@@ -262,6 +262,40 @@ hr.solid {
     color: #000;
     font-size: small;
 }
+/*Start KR additions*/
+.product-page-preview-container {
+    width: 100%;
+    margin-right: 200px; /*Not sure why it's not working to move down the "Data Types" section */
+}
+
+.product-page-preview-see-details {
+    text-align: right;
+    text-size: small;
+    color: #069;
+    cursor: pointer;
+}
+.product-page-preview-display-box1, .product-page-preview-display-box2, .product-page-preview-display-box3 {
+    border-radius: 10px;
+    background: #f2f2f2;
+    margin: 10px;
+    padding: 5px;
+    width: 25%;
+    height: 500px;
+    color: #000;
+    font-size: small;
+    float: left;
+    text-align: center;
+
+}
+
+.product-page-preview-data-display {
+    text-align: left;
+    color: black;
+    line-height: 2;
+    padding: 10px;
+}
+
+/*End KR additions*/
 
 .data-category-display-box:hover {
     border-radius: 5px;
@@ -310,3 +344,4 @@ hr.solid {
 #expand-tracking-definition-example-icon:hover {
     cursor: pointer;
 }
+
