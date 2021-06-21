@@ -1,15 +1,8 @@
 import React from "react";
-import {DataTypeText} from "./dataTypeText";
-import {dataCategoryTooltip, dataTypeOrderList} from "./data";
-import {DataTypeQuestion} from "./dataTypeQuestion";
 import {dataCategoryPluralFormMapping, dataTypeIconMapping, purposeOrderList, purposeLabelMapping} from "./data"
 import {CategoryTooltip} from "./dataCategoryOverview";
 
 export class SetUpDataPurposeDialog extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className={"my-modal " + (this.props.dialogDisplay === true ? "display-block" : "display-hidden")}>
