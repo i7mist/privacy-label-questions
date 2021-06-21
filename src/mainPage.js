@@ -58,11 +58,8 @@ export class MainPage extends React.Component {
             this.setState({collectionDialogDisplay: false})
         }
         let openDataTypeDialog = () => {
-            this.setState({collectionTypeDisplay: true})
-        }
-        let cancelDataTypeDialog = () => {
             this.setState({
-                collectionTypeDisplay: false,
+                collectionTypeDisplay: true,
                 checkedDataCategories: this.state.privacyAnswers.length > 0 && this.state.privacyAnswers[0] !== null ?
                     this.state.privacyAnswers.map((dataTypeDict) => {
                         let dataType = Object.keys(dataTypeDict)[0]
@@ -72,6 +69,11 @@ export class MainPage extends React.Component {
                             return dataType + "_" + category
                         })
                     }).flat() : []
+            })
+        }
+        let cancelDataTypeDialog = () => {
+            this.setState({
+                collectionTypeDisplay: false,
             })
         }
 
@@ -91,7 +93,7 @@ export class MainPage extends React.Component {
             })
         };
 
-        let onChangeCheckedState = (categoryId) => {
+        let onChangeCheckedDataCategories = (categoryId) => {
             return () => {
                 let checkedDataCategoriesState = this.state.checkedDataCategories
                 let index = checkedDataCategoriesState.indexOf(categoryId);
@@ -183,8 +185,54 @@ export class MainPage extends React.Component {
                     cancelTypeDialog={cancelDataTypeDialog}
                     openCollectionDialog={openDataCollectionDialog}
                     checkedDataCategories={this.state.checkedDataCategories}
-                    onChangeCheckedState={onChangeCheckedState}
+                    onChangeCheckedDataCategories={onChangeCheckedDataCategories}
                     clickSave={() => {
+                        let oldCategoryInfo = {}
+                        let i, j;
+                        for (i = 0; i < this.state.privacyAnswers.length ; ++i) {
+                            let dataTypeDict = this.state.privacyAnswers[i];
+                            if (dataTypeDict === null) {
+                                break;
+                            }
+                            let dataType = Object.keys(dataTypeDict)[0]
+                            let categories = dataTypeDict[dataType]
+                            for (j = 0 ; j < categories.length ; ++j) {
+                                let categoryDict = categories[j]
+                                let category = Object.keys(categoryDict)[0]
+                                let categoryId = dataType + "_" + category
+                                oldCategoryInfo[categoryId] = JSON.parse(JSON.stringify(categoryDict[category]))
+                            }
+                        }
+
+                        this.state.privacyAnswers.splice(0, this.state.privacyAnswers.length)
+
+                        let resultDict = {}
+                        let dataType;
+                        for (i = 0; i < this.state.checkedDataCategories.length ; ++i) {
+                            let categoryId = this.state.checkedDataCategories[i];
+                            dataType = categoryId.split("_")[0];
+                            if (dataType in resultDict) {
+                                resultDict[dataType].push(categoryId)
+                            } else {
+                                resultDict[dataType] = [categoryId]
+                            }
+                        }
+                        for (dataType in resultDict) {
+                            let catDictList = resultDict[dataType].map((categoryId) => {
+                                let category = categoryId.split("_")[1]
+                                let catDict = {}
+                                if (categoryId in oldCategoryInfo) {
+                                    catDict[category] =
+                                        JSON.parse(JSON.stringify(oldCategoryInfo[categoryId]))
+                                } else {
+                                    catDict[category] = {"purposes": [], "is_linked": null, "is_tracked": null}
+                                }
+                                return catDict
+                            })
+                            let dataTypeDict = {}
+                            dataTypeDict[dataType] = catDictList
+                            this.state.privacyAnswers.push(dataTypeDict)
+                        }
                         this.setState({collectionTypeDisplay: false})
                     }}
                 />
@@ -317,7 +365,6 @@ export class MainPage extends React.Component {
                             privacyAnswers: privacyAnswers,
                             isFirstBlockCompleted: true
                         })
-                        console.log(this.state.privacyAnswers)
                     }}
                 />
                 {this.state.privacyAnswers.length ? <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null}
