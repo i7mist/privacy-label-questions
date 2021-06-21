@@ -85,7 +85,7 @@ hr.solid {
 .my-modal-body {
     background-color: #fefefe;
     margin: auto;
-    padding: 40px;
+    padding: 0 40px 50px 40px;
     max-height: 550px;
     height: max-content;
     width: 35%;
@@ -100,7 +100,7 @@ hr.solid {
 .my-modal-footer {
     background-color: #fefefe;
     margin: auto;
-    padding: 40px 40px 80px 40px;
+    padding: 20px 20px 20px 20px;
     height: max-content;
     width: 35%;
     display: block;
