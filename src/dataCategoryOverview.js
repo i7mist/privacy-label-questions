@@ -40,6 +40,8 @@ export class DataCategoryOverview extends React.Component {
             <div className="review-category">
                 <span>{categoryName}</span>
                 <CategoryTooltip tooltipStyle="question-mark-circle" dataCategory={categoryName}/>
+                {hasInitialized && <button className="display-inline-block button-link"
+                        onClick={this.props.openSetUpPurposeDialog(this.props.dataType, categoryName)}>Edit</button>}
                 {!hasInitialized && <div className="data-category-setup-box"
                      onClick={this.props.openSetUpPurposeDialog(this.props.dataType, categoryName)}>{"Set Up " + categoryName}</div>}
                 {hasInitialized && <div className="data-category-display-box"
