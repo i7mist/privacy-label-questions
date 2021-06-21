@@ -61,6 +61,10 @@ export class SetUpDataLinkedDialog extends React.Component {
                         </ul>
                     </li>
                 </ul>
+                <br/>
+                <div>
+                    Note: “Personal Information” and “Personal Data”, as defined under relevant privacy laws, are considered linked to the user.
+                </div>
                 <hr className="solid"/>
                 <DataLinkedQuestion dataCategory={this.props.dataCategory}
                                     selectedLinked={this.props.selectedLinked}
