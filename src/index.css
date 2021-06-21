@@ -119,6 +119,11 @@ hr.solid {
     cursor: pointer;
 }
 
+.x-large-icon-style {
+    height: 32px;
+    width: 32px;
+}
+
 .large-icon-style {
     height: 25px;
     width: 25px;
@@ -319,4 +324,43 @@ hr.solid {
 
 #expand-tracking-definition-example-icon:hover {
     cursor: pointer;
+}
+
+.product-page-preview-see-details {
+    text-align: right;
+    color: #069;
+    cursor: pointer;
+}
+.product-page-preview-display-box {
+    border-radius: 3px;
+    background: #f2f2f2;
+    margin: 10px;
+    padding: 25px 10px 25px 25px;
+    color: #000;
+    text-align: center;
+}
+
+.product-page-preview-display-box-title {
+    font-weight: 500
+}
+
+.product-page-preview-display-box-description {
+    color: #555555;
+    font-size: small;
+    padding: 10px 5px 5px 5px;
+}
+
+.product-page-preview-display-box-content {
+    color: #000;
+    font-size: small;
+    text-align: left;
+    padding: 10px 5px 5px 5px;
+}
+
+
+.product-page-preview-data-display {
+    text-align: left;
+    color: black;
+    line-height: 2;
+    padding: 10px;
 }
