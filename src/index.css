@@ -338,6 +338,7 @@ hr.solid {
     padding: 25px 10px 25px 25px;
     color: #000;
     text-align: center;
+    max-width: 50%;
 }
 
 .product-page-preview-display-box-title {

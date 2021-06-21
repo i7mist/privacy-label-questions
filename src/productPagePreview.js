@@ -51,12 +51,12 @@ export class ProductPagePreview extends React.Component {
         return (
             <div>
                 {showProductPagePreview && <div>
-                <div>
+                    <div>
                         <h3 className={"display-inline-block"}>Product Page Preview</h3>
                         <button className="display-inline-block button-link">See Details</button>
                     </div>
-                    <div>
-                        {dataNotCollected && <div className="display-inline-block product-page-preview-display-box">
+                    <div className={"row"}>
+                        {dataNotCollected && <div className="col product-page-preview-display-box">
                             <img className="x-large-icon-style" src={dataNotCollectedIcon} alt="Data Not Collected"/>
                             <div className="product-page-preview-display-box-title">
                                 Data Not Collected</div>
@@ -64,7 +64,7 @@ export class ProductPagePreview extends React.Component {
                                 The developer does not collect any data from this app.
                             </div>
                         </div>}
-                        {dataForTrackingList.length > 0 && <div className="display-inline-block product-page-preview-display-box">
+                        {dataForTrackingList.length > 0 && <div className="col product-page-preview-display-box">
                             <img className="x-large-icon-style" src={dataUsedToTrackIcon} alt="Data Used to Track You"/>
                             <div className="product-page-preview-display-box-title">
                                 Data Used to Track You</div>
@@ -77,7 +77,7 @@ export class ProductPagePreview extends React.Component {
                                                                             alt={dataType}/> {dataType}</div>)}
                             </div>
                         </div>}
-                        {dataLinkedList.length > 0 && <div className="display-inline-block product-page-preview-display-box">
+                        {dataLinkedList.length > 0 && <div className="col product-page-preview-display-box">
                             <img className="x-large-icon-style" src={dataLinkedIcon} alt="Data Linked to You"/>
                             <div className="product-page-preview-display-box-title">Data Linked to You</div>
                             <div className="product-page-preview-display-box-description">
@@ -88,7 +88,7 @@ export class ProductPagePreview extends React.Component {
                                          alt={dataType}/> {dataType}</div>)}
                             </div>
                         </div>}
-                        {dataNotLinkedList.length > 0 && <div className="display-inline-block product-page-preview-display-box">
+                        {dataNotLinkedList.length > 0 && <div className="col product-page-preview-display-box">
                             <img className="x-large-icon-style" src={dataNotLinkedIcon} alt="Data Not Linked to You"/>
                             <div className="product-page-preview-display-box-title">Data Not Linked to You</div>
                             <div className="product-page-preview-display-box-description">
