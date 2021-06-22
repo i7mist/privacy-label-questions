@@ -26,7 +26,7 @@ class StudyInitPage extends React.Component {
             <label htmlFor="participantID">Please enter your participant ID:</label>
             <input type="text" id="participantID" name="participantID"/>
             <br/>
-            <input type="submit" value="Get started" onClick={this.props.onClickGetStarted}/>
+            <input type="submit" value="Submit" onClick={this.props.onClickSubmitParticipantID}/>
         </div>
     }
 }
@@ -50,7 +50,7 @@ export class MainPage extends React.Component {
         super();
         this.state = {
             participantID: null,
-            privacyAnswers: initPrivacyAnswers, //[]
+            privacyAnswers: [],
             collectionDialogDisplay: false,
             collectionTypeDisplay: false,
             setDataCollectionPurposeDialogDisplay: false,
@@ -77,7 +77,7 @@ export class MainPage extends React.Component {
     }
 
     render() {
-        let onClickGetStudyStarted = () => {
+        let onClickSubmitParticipantID = () => {
             let inputTag = document.getElementById("participantID")
             this.setState({
                 participantID: inputTag.value
@@ -399,7 +399,7 @@ export class MainPage extends React.Component {
                         })
                     }}
                 />
-                {!this.state.participantID && <StudyInitPage onClickGetStarted={onClickGetStudyStarted}/>}
+                {!this.state.participantID && <StudyInitPage onClickSubmitParticipantID={onClickSubmitParticipantID}/>}
                 {this.state.participantID && <StudyHeader participantID={this.state.participantID}/>}
                 {this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
