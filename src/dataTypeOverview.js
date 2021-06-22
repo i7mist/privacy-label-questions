@@ -1,5 +1,6 @@
 import React from "react";
 import {DataCategoryOverview} from "./dataCategoryOverview";
+import {dataTypeIconMapping} from "./data";
 
 export class DataTypeOverview extends React.Component {
     render() {
@@ -7,7 +8,8 @@ export class DataTypeOverview extends React.Component {
         let categories = this.props.dataTypeAnswers[title]
         return (
             <div>
-                <h4>{title}</h4>
+                <img className="medium-icon-style overview-header-icon display-inline-block" src={dataTypeIconMapping[title]} alt={title}/>
+                <h6 className={"display-inline-block"}>{title}</h6>
                 <div>
                 {categories.map((category) =>
                     <DataCategoryOverview
@@ -15,6 +17,7 @@ export class DataTypeOverview extends React.Component {
                         category={category} openSetUpPurposeDialog={this.props.openSetUpPurposeDialog}/>
                 )}
                 </div>
+                <hr className="solid"/>
             </div>
         );
     }

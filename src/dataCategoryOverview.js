@@ -1,7 +1,7 @@
 import React from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
-import {dataCategoryTooltip} from "./data";
+import {dataCategoryTooltip, dataTypeIconMapping} from "./data";
 
 export class CategoryTooltip extends React.Component {
     constructor() {
@@ -38,7 +38,7 @@ export class DataCategoryOverview extends React.Component {
         hasInitialized = categoryDetails["purposes"].length !== 0 ;
         return (
             <div className="review-category">
-                <span>{categoryName}</span>
+                <span className="category-overview-title">{categoryName}</span>
                 <CategoryTooltip tooltipStyle="question-mark-circle" dataCategory={categoryName}/>
                 {hasInitialized && <button className="display-inline-block button-link"
                         onClick={this.props.openSetUpPurposeDialog(this.props.dataType, categoryName)}>Edit</button>}
