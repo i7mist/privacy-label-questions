@@ -11,7 +11,7 @@ export class DataTypeDialog extends React.Component {
                     <h3>Data Collection</h3>
                 </div>
                 <div className="my-modal-body">
-                    <DataTypeText/>
+                    <DataTypeText logData={this.props.logData}/>
                     <hr className="solid"/>
                     {dataTypeOrderList.map((dataType) =>
                         <DataTypeQuestion dataType={dataType}

@@ -17,7 +17,10 @@ export class CategoryTooltip extends React.Component {
         return (
             <span>
                 <span className={this.props.tooltipStyle} ref={this.myRef}
-                                      onClick={() => this.setState({show: !this.state.show})}>?</span>
+                                      onClick={() => {
+                                          this.setState({show: !this.state.show})
+                                          this.props.logData("useTooltip", {"dataCategory": this.props.dataCategory})
+                                      }}>?</span>
                 <Overlay target={this.myRef.current} show={this.state.show} placement="right">
                     {(props) => (
                         <Tooltip id={"overlay-example"} {...props}>
@@ -39,7 +42,7 @@ export class DataCategoryOverview extends React.Component {
         return (
             <div className="review-category">
                 <span className="category-overview-title">{categoryName}</span>
-                <CategoryTooltip tooltipStyle="question-mark-circle" dataCategory={categoryName}/>
+                <CategoryTooltip tooltipStyle="question-mark-circle" dataCategory={categoryName} logData={this.props.logData}/>
                 {hasInitialized && <button className="display-inline-block button-link"
                         onClick={this.props.openSetUpPurposeDialog(this.props.dataType, categoryName)}>Edit</button>}
                 {!hasInitialized && <div className="data-category-setup-box"

@@ -32,7 +32,8 @@ export class SetUpDataLinkedDialog extends React.Component {
                 <img className="display-inline-block large-icon-style modal-header-icon"
                      src={dataTypeIconMapping[this.props.dataType]} alt={this.props.dataType}/>
                 <h3 className={"display-inline-block"}>{this.props.dataCategory}</h3>
-                <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}/>
+                <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
+                                 logData={this.props.logData}/>
             </div>
             <div className="my-modal-body description-text">
                 <div>

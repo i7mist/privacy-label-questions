@@ -13,7 +13,8 @@ export class SetUpDataTrackingDialog extends React.Component {
                 <img className="display-inline-block large-icon-style modal-header-icon"
                      src={dataTypeIconMapping[this.props.dataType]} alt={this.props.dataType}/>
                 <h3 className={"display-inline-block"}>{this.props.dataCategory}</h3>
-                <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}/>
+                <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
+                                 logData={this.props.logData}/>
             </div>
             <div className="my-modal-body description-text">
                 <div>
@@ -44,7 +45,9 @@ export class SetUpDataTrackingDialog extends React.Component {
                     <img className={"display-inline-block"} src={warningIcon} alt={"Warning"}/>
                     Based on your response, your app may be in violation of guidelines 5.1.2 and 5.1.3 of the <a className={"display-inline-block"}
                        href={"https://developer.apple.com/app-store/review/guidelines/#legal"} target="_blank"
-                        rel="noopener noreferrer">App Store Guidelines</a>.
+                        rel="noopener noreferrer" onClick={
+                            () => {this.props.logData("open link", "https://developer.apple.com/app-store/review/guidelines/#legal")}
+                }>App Store Guidelines</a>.
                 </div>}
                 <br/>
                 <div id="expand-tracking-definition-example-icon" onClick={this.props.handleDefinitionExampleClick}>

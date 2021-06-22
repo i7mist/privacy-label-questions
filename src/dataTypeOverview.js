@@ -14,7 +14,8 @@ export class DataTypeOverview extends React.Component {
                 {categories.map((category) =>
                     <DataCategoryOverview
                         dataType = {title}
-                        category={category} openSetUpPurposeDialog={this.props.openSetUpPurposeDialog}/>
+                        category={category} openSetUpPurposeDialog={this.props.openSetUpPurposeDialog}
+                        logData={this.props.logData}/>
                 )}
                 </div>
                 <hr className="solid"/>

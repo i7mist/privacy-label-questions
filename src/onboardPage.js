@@ -11,7 +11,7 @@ export class OnboardPage extends React.Component {
                     collection practices. This information will appear on your app's product page, where users can see
                     what data your app collects and how it's used.</p>
                 <div className="get-started-btn">
-                    <button onClick={this.props.clickGetStarted}>Get Started</button>
+                    <button onClick={() => {this.props.logData("finish onboarding page", null);this.props.clickGetStarted()}}>Get Started</button>
                 </div>
             </div>
         )

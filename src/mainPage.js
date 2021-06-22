@@ -37,11 +37,27 @@ class StudyHeader extends React.Component {
             <div>
                 <div>
                     <div className={"display-inline-block"}>Participant ID: {this.props.participantID}</div>
-                    <button className="task-complete-button" onClick={() => alert("Your Answer has been recorded")}>Done</button>
+                    <button className="right-btn-group" onClick={this.props.onClickPrivacyLabelDone}>Done</button>
+                    <button className="right-btn-group" onClick={this.props.clickShowLogs}>Show all logs</button>
                 </div>
                 <hr className={"solid"}/>
             </div>
         );
+    }
+}
+
+class ShowLogs extends React.Component {
+    render() {
+        let eventListString
+        if (localStorage.getItem("eventList") !== null) {
+            eventListString = localStorage.getItem("eventList")
+        } else {
+            eventListString = "[]"
+        }
+
+        return (<div>
+            {eventListString}
+        </div>)
     }
 }
 
@@ -64,7 +80,8 @@ export class MainPage extends React.Component {
             selectedLinked: null,
             selectedForTracking: null,
             expandedDefinitionAndExample: false,
-            isFirstBlockCompleted: false
+            isFirstBlockCompleted: false,
+            showLogs: false
             //     initPrivacyAnswers.map((dataTypeDict) => {
             //     let dataType = Object.keys(dataTypeDict)[0]
             //     let categories = dataTypeDict[dataType]
@@ -77,17 +94,41 @@ export class MainPage extends React.Component {
     }
 
     render() {
+        let logData = (event, data) => {
+            let eventList
+            if (localStorage.getItem("eventList") !== null) {
+                eventList = JSON.parse(localStorage.getItem("eventList"))
+            } else {
+                eventList = []
+            }
+            let desc = {"time": Date.now(), "participantID": this.state.participantID, "event":  event, "data": data}
+            console.log(eventList)
+            eventList.push(desc)
+            localStorage.setItem("eventList", JSON.stringify(eventList))
+        }
         let onClickSubmitParticipantID = () => {
             let inputTag = document.getElementById("participantID")
             this.setState({
                 participantID: inputTag.value
             })
+            logData("submitted participant ID", null)
+        }
+        let onClickPrivacyLabelDone = () => {
+            logData("privacy label completed", this.state.privacyAnswers)
+            alert("Your Answer has been recorded")
+        }
+        let clickShowLogs = () => {
+            this.setState({
+                showLogs: !this.state.showLogs
+            })
         }
         let openDataCollectionDialog = () => {
             this.setState({collectionDialogDisplay: true})
+            logData("openDataCollectionDialog", null)
         }
         let cancelDataCollectionDialog = () => {
             this.setState({collectionDialogDisplay: false})
+            logData("cancelDataCollectionDialog", null)
         }
         let openDataTypeDialog = () => {
             this.setState({
@@ -102,11 +143,13 @@ export class MainPage extends React.Component {
                         })
                     }).flat() : []
             })
+            logData("openDataTypeDialog", this.state.checkedDataCategories)
         }
         let cancelDataTypeDialog = () => {
             this.setState({
                 collectionTypeDisplay: false,
             })
+            logData("cancelDataTypeDialog", null)
         }
 
         let openSetUpDataTrackingDialog = () => {
@@ -115,6 +158,23 @@ export class MainPage extends React.Component {
                 selectedForTracking: getSelectedInfo(this.state.privacyAnswers,
                     this.state.currentDataType, this.state.currentDataCategory, "is_tracked")
             })
+            logData("openSetUpDataTrackingDialog", {"currentDataType": this.state.currentDataType,
+                "currentDataCategory": this.state.currentDataCategory,
+                "selectedForTracking": this.state.selectedForTracking})
+        }
+
+        let openTrackingDefinitionDialog = () => {
+            this.setState({
+                trackingDefinitionDialogDisplay: true
+            })
+            logData("openTrackingDefinitionDialog", null)
+        }
+
+        let openTrackingExampleDialog = () => {
+            this.setState({
+                trackingExampleDialogDisplay: true
+            })
+            logData("openTrackingExampleDialog", null)
         }
 
         let openSetUpDataLinkedDialog = () => {
@@ -123,6 +183,9 @@ export class MainPage extends React.Component {
                 selectedLinked: getSelectedInfo(this.state.privacyAnswers,
                     this.state.currentDataType, this.state.currentDataCategory, "is_linked")
             })
+            logData("openSetUpDataLinkedDialog", {"currentDataType": this.state.currentDataType,
+                "currentDataCategory": this.state.currentDataCategory,
+                "selectedForTracking": this.state.selectedLinked})
         };
 
         let onChangeCheckedDataCategories = (categoryId) => {
@@ -131,8 +194,10 @@ export class MainPage extends React.Component {
                 let index = checkedDataCategoriesState.indexOf(categoryId);
                 if (index > -1) {
                     checkedDataCategoriesState.splice(index, 1);
+                    logData("onChangeCheckedDataCategories", {"categoryId": categoryId, "action": "remove"})
                 } else {
                     checkedDataCategoriesState.push(categoryId)
+                    logData("onChangeCheckedDataCategories", {"categoryId": categoryId, "action": "add"})
                 }
                 this.setState({checkedDataCategories: checkedDataCategoriesState})
             }
@@ -144,8 +209,10 @@ export class MainPage extends React.Component {
                 let index = selectedPurposesState.indexOf(purpose)
                 if (index > -1) {
                     selectedPurposesState.splice(index, 1);
+                    logData("onChangeSelectedPurpose", {"purpose": purpose, "action": "remove"})
                 } else {
                     selectedPurposesState.push(purpose)
+                    logData("onChangeSelectedPurpose", {"purpose": purpose, "action": "add"})
                 }
                 this.setState({
                     selectedPurposes: selectedPurposesState
@@ -157,12 +224,18 @@ export class MainPage extends React.Component {
             this.setState({
                 selectedLinked: e.target.value
             })
+            logData("handleDataLinkedSelectionChange", {"currentDataType": this.state.currentDataType,
+                "currentDataCategory": this.state.currentDataCategory,
+                "selectedLinked": this.state.selectedLinked})
         }
 
         let handleDataForTrackingSelectionChange = (e) => {
             this.setState({
                 selectedForTracking: e.target.value
             })
+            logData("handleDataForTrackingSelectionChange", {"currentDataType": this.state.currentDataType,
+                "currentDataCategory": this.state.currentDataCategory,
+                "selectedForTracking": this.state.selectedForTracking})
         }
 
         function getSelectedInfo(privacyAnswers, dataType, dataCategory, fieldName) {
@@ -193,6 +266,7 @@ export class MainPage extends React.Component {
                     dialogDisplay={this.state.collectionDialogDisplay}
                     cancelCollectionDialog={cancelDataCollectionDialog}
                     openTypeDialog={openDataTypeDialog}
+                    logData={logData}
                     clickSave={() => {
                         let rootDiv = document.getElementById("dataCollectionQuestion")
                         let choices = rootDiv.getElementsByTagName("input")
@@ -209,6 +283,7 @@ export class MainPage extends React.Component {
                             }
                         }
                         this.setState({collectionDialogDisplay: false})
+                        logData("save privacyAnswers", this.state.privacyAnswers)
                     }}
                 />
                 <DataTypeDialog
@@ -218,6 +293,7 @@ export class MainPage extends React.Component {
                     openCollectionDialog={openDataCollectionDialog}
                     checkedDataCategories={this.state.checkedDataCategories}
                     onChangeCheckedDataCategories={onChangeCheckedDataCategories}
+                    logData={logData}
                     clickSave={() => {
                         let oldCategoryInfo = {}
                         let i, j;
@@ -266,9 +342,11 @@ export class MainPage extends React.Component {
                             this.state.privacyAnswers.push(dataTypeDict)
                         }
                         this.setState({collectionTypeDisplay: false})
+                        logData("save privacyAnswers", this.state.privacyAnswers)
                     }}
                 />
                 <SetUpDataPurposeDialog
+                    logData={logData}
                     dialogDisplay={this.state.setDataCollectionPurposeDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -278,10 +356,12 @@ export class MainPage extends React.Component {
                         this.setState({
                             setDataCollectionPurposeDialogDisplay: false,
                         })
+                        logData("cancelSetUpPurposeDialog", null)
                     }}
                     openSetUpDataLinkedDialog={openSetUpDataLinkedDialog}
                 />
                 <SetUpDataLinkedDialog
+                    logData={logData}
                     dialogDisplay={this.state.setDataCollectionLinkedDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -291,12 +371,11 @@ export class MainPage extends React.Component {
                         this.setState({
                             setDataCollectionLinkedDialogDisplay: false,
                         })
+                        logData("cancelSetUpDataLinkedDialog", null)
                     }}
                     openNextDialog={() => {
                         if (!this.state.isFirstBlockCompleted) {
-                            this.setState({
-                                trackingDefinitionDialogDisplay: true
-                            })
+                            openTrackingDefinitionDialog()
                         } else {
                             openSetUpDataTrackingDialog()
                         }
@@ -306,9 +385,11 @@ export class MainPage extends React.Component {
                         this.setState({
                             setDataCollectionPurposeDialogDisplay: true,
                         })
+                        logData("openSetUpPurposeDialog", null)
                     }}
                 />
                 <TrackingDefinitionDialog
+                    logData={logData}
                     dialogDisplay={this.state.trackingDefinitionDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -316,6 +397,7 @@ export class MainPage extends React.Component {
                         this.setState({
                             trackingDefinitionDialogDisplay: false
                         })
+                        logData("cancelTrackingDefinitionDialog", null)
                     }}
                     openSetUpDataLinkedDialog={() => {
                         this.setState({
@@ -323,14 +405,14 @@ export class MainPage extends React.Component {
                             selectedLinked: getSelectedInfo(this.state.privacyAnswers,
                                 this.state.currentDataType, this.state.currentDataCategory, "is_linked")
                         })
+                        logData("openSetUpDataLinkedDialog", {"currentDataType": this.state.currentDataType,
+                                "currentDataCategory": this.state.currentDataCategory,
+                                "selectedLinked": this.state.selectedLinked})
                     }}
-                    openTrackingExampleDialog={() => {
-                        this.setState({
-                            trackingExampleDialogDisplay: true
-                        })
-                    }}
+                    openTrackingExampleDialog={openTrackingExampleDialog}
                 />
                 <TrackingExampleDialog
+                    logData={logData}
                     dialogDisplay={this.state.trackingExampleDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -338,15 +420,13 @@ export class MainPage extends React.Component {
                         this.setState({
                             trackingExampleDialogDisplay: false
                         })
+                        logData("cancelTrackingExampleDialog", null)
                     }}
-                    openTrackingDefinitionDialog={() => {
-                        this.setState({
-                            trackingDefinitionDialogDisplay: true
-                        })
-                    }}
+                    openTrackingDefinitionDialog={openTrackingDefinitionDialog}
                     openSetUpDataTrackingDialog={openSetUpDataTrackingDialog}
                 />
                 <SetUpDataTrackingDialog
+                    logData={logData}
                     dialogDisplay={this.state.setUpDataTrackingDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -356,18 +436,19 @@ export class MainPage extends React.Component {
                         this.setState({
                             expandedDefinitionAndExample: !this.state.expandedDefinitionAndExample
                         })
+                        logData("handleDefinitionExampleClick",
+                            {"expandedDefinitionAndExample": this.state.expandedDefinitionAndExample})
                     }}
                     expandedDefinitionAndExample={this.state.expandedDefinitionAndExample}
                     cancelSetUpDataTrackingDialog={() => {
                         this.setState({
                             setUpDataTrackingDialogDisplay: false
                         })
+                        logData("cancelSetUpDataTrackingDialog",null)
                     }}
                     openPreviousDialog={() => {
                         if (!this.state.isFirstBlockCompleted) {
-                            this.setState({
-                                trackingExampleDialogDisplay: true
-                            })
+                            openTrackingExampleDialog()
                         } else {
                             openSetUpDataLinkedDialog()
                         }
@@ -397,18 +478,23 @@ export class MainPage extends React.Component {
                             privacyAnswers: privacyAnswers,
                             isFirstBlockCompleted: true
                         })
+                        logData("save privacyAnswers ", privacyAnswers)
                     }}
                 />
                 {!this.state.participantID && <StudyInitPage onClickSubmitParticipantID={onClickSubmitParticipantID}/>}
-                {this.state.participantID && <StudyHeader participantID={this.state.participantID}/>}
-                {this.state.participantID && (this.state.privacyAnswers.length ?
+                {this.state.participantID && <StudyHeader participantID={this.state.participantID}
+                                                          onClickPrivacyLabelDone={onClickPrivacyLabelDone}
+                                                          clickShowLogs={clickShowLogs}/>}
+                {this.state.showLogs && <ShowLogs/>}
+                {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
-                {this.state.participantID && (this.state.privacyAnswers.length ?
+                {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}
-                                         privacyAnswers={this.state.privacyAnswers}/> :
-                    <OnboardPage clickGetStarted={openDataCollectionDialog}/>)}
-                {this.state.participantID && (this.state.privacyAnswers.length ?
-                <PrivacyOverviewSection privacyAnswers={this.state.privacyAnswers}
+                                         privacyAnswers={this.state.privacyAnswers}
+                                         logData={logData}/> :
+                    <OnboardPage clickGetStarted={openDataCollectionDialog} logData={logData}/>)}
+                {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
+                    <PrivacyOverviewSection privacyAnswers={this.state.privacyAnswers} logData={logData}
                                         openSetUpPurposeDialog={(dataType, dataCategory) => {
                                             return () => {
                                                 this.setState({
@@ -418,9 +504,14 @@ export class MainPage extends React.Component {
                                                     selectedPurposes: getSelectedInfo(this.state.privacyAnswers,
                                                         dataType, dataCategory, "purposes")
                                                 })
+                                                logData("openSetUpPurposeDialog",
+                                                    {"currentDataType": this.state.dataType,
+                                                        "currentDataCategory": this.state.dataCategory,
+                                                        "selectedPurposes": getSelectedInfo(this.state.privacyAnswers,
+                                                            dataType, dataCategory, "purposes")})
                                             }
                                         }}
-                /> : null)}
+                    /> : null)}
             </div>
         );
     }

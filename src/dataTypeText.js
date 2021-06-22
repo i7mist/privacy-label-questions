@@ -16,14 +16,21 @@ export class DataTypeText extends React.Component {
                         third-party data about the user or device for advertising or advertising measurement,
                         or shared with a data broker). For more detail,
                         see <a href={"https://developer.apple.com/app-store/app-privacy-details/#user-tracking"}
-                           target="_blank" rel="noopener noreferrer">
+                           target="_blank" rel="noopener noreferrer"
+                               onClick={() => {
+                                   this.props.logData("open link",
+                                       "https://developer.apple.com/app-store/app-privacy-details/#user-tracking")}}>
                             App privacy details on the App Store</a>.
                     </li>
                     <li>
                         The data is not used for Third-Party Advertising, your Advertising or Marketing purposes,
                         or for Other Purposes, as those terms are defined
                         in <a href={"https://developer.apple.com/app-store/app-privacy-details/#data-type-usage"}
-                              target="_blank" rel="noopener noreferrer">App privacy details on the App Store</a>.
+                              target="_blank" rel="noopener noreferrer"
+                              onClick={() => {
+                                  this.props.logData("open link",
+                                      "https://developer.apple.com/app-store/app-privacy-details/#data-type-usage")}}>
+                        App privacy details on the App Store</a>.
                     </li>
                     <li>
                         Collection of the data occurs only in infrequent cases that are not part of your app’s primary
@@ -71,7 +78,11 @@ export class DataTypeText extends React.Component {
                         All such data collection must follow the relevant App Store Guidelines and the data may not be
                         used for tracking purposes as defined
                         in <a href={"https://developer.apple.com/app-store/app-privacy-details/#data-type-usage"}
-                              target="_blank" rel="noopener noreferrer">App privacy details on the App Store</a>.
+                              target="_blank" rel="noopener noreferrer"
+                              onClick={() => {
+                                  this.props.logData("open link",
+                                      "https://developer.apple.com/app-store/app-privacy-details/#data-type-usage")}}>
+                        App privacy details on the App Store</a>.
                     </li>
                 </ul>
                 If the data type collected by your app meets some, but not all, of the above criteria, it must be disclosed in your privacy section.

@@ -6,7 +6,8 @@ export class PrivacyOverviewSection extends React.Component {
         return (
             <div>
                 {this.props.privacyAnswers[0] && this.props.privacyAnswers.map((dataType) => <DataTypeOverview
-                    dataTypeAnswers={dataType} openSetUpPurposeDialog={this.props.openSetUpPurposeDialog}/>)}
+                    dataTypeAnswers={dataType} openSetUpPurposeDialog={this.props.openSetUpPurposeDialog}
+                    logData={this.props.logData}/>)}
             </div>
         );
     }

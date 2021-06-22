@@ -36,7 +36,9 @@ export class DataCollectionDialog extends React.Component {
                     </ul>
                     <p/>
                     You can <a href={"https://developer.apple.com/app-store/app-privacy-details/"} target="_blank"
-                               rel="noopener noreferrer">view the full list of questions</a> at any time.
+                               rel="noopener noreferrer" onClick={() => {
+                                   this.props.logData("open link", "https://developer.apple.com/app-store/app-privacy-details/")}}>
+                    view the full list of questions</a> at any time.
                     <p/>
                     <hr className="solid"/>
                     <p/>
