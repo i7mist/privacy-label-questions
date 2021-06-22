@@ -20,10 +20,36 @@ const initPrivacyAnswers = [
     },
     {"Health & Fitness": [{"Health": {"purposes": ["App Functionality", "Other Purposes"], "is_linked": "data_not_linked", "is_tracked": "data_not_for_tracking"}}]}]
 
+class StudyInitPage extends React.Component {
+    render() {
+        return <div>
+            <label htmlFor="participantID">Please enter your participant ID:</label>
+            <input type="text" id="participantID" name="participantID"/>
+            <br/>
+            <input type="submit" value="Get started" onClick={this.props.onClickGetStarted}/>
+        </div>
+    }
+}
+
+class StudyHeader extends React.Component {
+    render() {
+        return (
+            <div>
+                <div>
+                    <div className={"display-inline-block"}>Participant ID: {this.props.participantID}</div>
+                    <button className="task-complete-button" onClick={() => alert("Your Answer has been recorded")}>Done</button>
+                </div>
+                <hr className={"solid"}/>
+            </div>
+        );
+    }
+}
+
 export class MainPage extends React.Component {
     constructor() {
         super();
         this.state = {
+            participantID: null,
             privacyAnswers: initPrivacyAnswers, //[]
             collectionDialogDisplay: false,
             collectionTypeDisplay: false,
@@ -51,6 +77,12 @@ export class MainPage extends React.Component {
     }
 
     render() {
+        let onClickGetStudyStarted = () => {
+            let inputTag = document.getElementById("participantID")
+            this.setState({
+                participantID: inputTag.value
+            })
+        }
         let openDataCollectionDialog = () => {
             this.setState({collectionDialogDisplay: true})
         }
@@ -367,12 +399,15 @@ export class MainPage extends React.Component {
                         })
                     }}
                 />
-                {this.state.privacyAnswers.length ? <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null}
-                {this.state.privacyAnswers.length ?
+                {!this.state.participantID && <StudyInitPage onClickGetStarted={onClickGetStudyStarted}/>}
+                {this.state.participantID && <StudyHeader participantID={this.state.participantID}/>}
+                {this.state.participantID && (this.state.privacyAnswers.length ?
+                    <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
+                {this.state.participantID && (this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}
                                          privacyAnswers={this.state.privacyAnswers}/> :
-                    <OnboardPage clickGetStarted={openDataCollectionDialog}/>}
-                {this.state.privacyAnswers.length ?
+                    <OnboardPage clickGetStarted={openDataCollectionDialog}/>)}
+                {this.state.participantID && (this.state.privacyAnswers.length ?
                 <PrivacyOverviewSection privacyAnswers={this.state.privacyAnswers}
                                         openSetUpPurposeDialog={(dataType, dataCategory) => {
                                             return () => {
@@ -385,7 +420,7 @@ export class MainPage extends React.Component {
                                                 })
                                             }
                                         }}
-                /> : null}
+                /> : null)}
             </div>
         );
     }

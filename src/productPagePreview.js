@@ -52,7 +52,7 @@ export class ProductPagePreview extends React.Component {
             <div>
                 {showProductPagePreview && <div>
                     <div>
-                        <h3 className={"display-inline-block"}>Product Page Preview</h3>
+                        <h5 className={"display-inline-block"}>Product Page Preview</h5>
                         <button className="display-inline-block button-link">See Details</button>
                     </div>
                     <div className={"row"}>

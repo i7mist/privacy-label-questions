@@ -380,3 +380,11 @@ hr.solid {
     font-size: small;
     font-weight: 500;
 }
+
+.data-type-summary {
+    font-size: small;
+}
+
+.task-complete-button {
+    float: right;
+}
