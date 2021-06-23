@@ -39,6 +39,7 @@ class StudyHeader extends React.Component {
                     <div className={"display-inline-block"}>Participant ID: {this.props.participantID}</div>
                     <button className="right-btn-group" onClick={this.props.onClickPrivacyLabelDone}>Done</button>
                     <button className="right-btn-group" onClick={this.props.clickShowLogs}>Show all logs</button>
+                    <button className="right-btn-group" onClick={this.props.clickShowLabel}>Show privacy label</button>
                 </div>
                 <hr className={"solid"}/>
             </div>
@@ -81,7 +82,8 @@ export class MainPage extends React.Component {
             selectedForTracking: null,
             expandedDefinitionAndExample: false,
             isFirstBlockCompleted: false,
-            showLogs: false
+            showLogs: false,
+            showLabel: false
             //     initPrivacyAnswers.map((dataTypeDict) => {
             //     let dataType = Object.keys(dataTypeDict)[0]
             //     let categories = dataTypeDict[dataType]
@@ -121,6 +123,11 @@ export class MainPage extends React.Component {
         let clickShowLogs = () => {
             this.setState({
                 showLogs: !this.state.showLogs
+            })
+        }
+        let clickShowLabel = () => {
+            this.setState({
+                showLabel: !this.state.showLabel
             })
         }
         let openDataCollectionDialog = () => {
@@ -485,9 +492,10 @@ export class MainPage extends React.Component {
                 {!this.state.participantID && <StudyInitPage onClickSubmitParticipantID={onClickSubmitParticipantID}/>}
                 {this.state.participantID && <StudyHeader participantID={this.state.participantID}
                                                           onClickPrivacyLabelDone={onClickPrivacyLabelDone}
+                                                          clickShowLabel={clickShowLabel}
                                                           clickShowLogs={clickShowLogs}/>}
                 {this.state.showLogs && <ShowLogs/>}
-                {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
+                {this.state.showLabel && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
                 {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}
