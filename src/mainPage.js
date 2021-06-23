@@ -66,7 +66,7 @@ export class MainPage extends React.Component {
         super();
         this.state = {
             participantID: null,
-            privacyAnswers: [],
+            privacyAnswers: localStorage.getItem("privacyAnswers") === null ? [] : JSON.parse(localStorage.getItem("privacyAnswers")),
             collectionDialogDisplay: false,
             collectionTypeDisplay: false,
             setDataCollectionPurposeDialogDisplay: false,
@@ -105,6 +105,7 @@ export class MainPage extends React.Component {
             console.log(eventList)
             eventList.push(desc)
             localStorage.setItem("eventList", JSON.stringify(eventList))
+            localStorage.setItem("privacyAnswers", JSON.stringify(this.state.privacyAnswers))
         }
         let onClickSubmitParticipantID = () => {
             let inputTag = document.getElementById("participantID")
