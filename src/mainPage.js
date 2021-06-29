@@ -38,8 +38,10 @@ class StudyHeader extends React.Component {
                 <div>
                     <div className={"display-inline-block"}>Participant ID: {this.props.participantID}</div>
                     <button className="right-btn-group" onClick={this.props.onClickPrivacyLabelDone}>Done</button>
-                    <button className="right-btn-group" onClick={this.props.clickShowLogs}>Show all logs</button>
-                    <button className="right-btn-group" onClick={this.props.clickShowLabel}>Show privacy label</button>
+                    <button className="right-btn-group" onClick={this.props.clickShowLogs}>
+                        {this.props.showLogs ? "Hide all logs" : "Show all logs"}</button>
+                    <button className="right-btn-group" onClick={this.props.clickShowLabel}>
+                        {this.props.showLabel ? "Hide privacy label": "Show privacy label"}</button>
                 </div>
                 <hr className={"solid"}/>
             </div>
@@ -83,15 +85,7 @@ export class MainPage extends React.Component {
             expandedDefinitionAndExample: false,
             isFirstBlockCompleted: false,
             showLogs: false,
-            showLabel: false
-            //     initPrivacyAnswers.map((dataTypeDict) => {
-            //     let dataType = Object.keys(dataTypeDict)[0]
-            //     let categories = dataTypeDict[dataType]
-            //     return categories.map((categoryDict) => {
-            //         let category = Object.keys(categoryDict)[0]
-            //         return dataType + "_" + category
-            //     })
-            // }).flat()
+            showLabel: true
         }
     }
 
@@ -492,8 +486,8 @@ export class MainPage extends React.Component {
                 {!this.state.participantID && <StudyInitPage onClickSubmitParticipantID={onClickSubmitParticipantID}/>}
                 {this.state.participantID && <StudyHeader participantID={this.state.participantID}
                                                           onClickPrivacyLabelDone={onClickPrivacyLabelDone}
-                                                          clickShowLabel={clickShowLabel}
-                                                          clickShowLogs={clickShowLogs}/>}
+                                                          clickShowLabel={clickShowLabel} showLabel={this.state.showLabel}
+                                                          clickShowLogs={clickShowLogs} showLogs={this.state.showLogs}/>}
                 {this.state.showLogs && <ShowLogs/>}
                 {this.state.showLabel && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
