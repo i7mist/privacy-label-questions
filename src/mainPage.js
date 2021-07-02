@@ -156,6 +156,7 @@ export class MainPage extends React.Component {
 
         let openSetUpDataTrackingDialog = () => {
             this.setState({
+                expandedDefinitionAndExample: false,
                 setUpDataTrackingDialogDisplay: true,
                 selectedForTracking: getSelectedInfo(this.state.privacyAnswers,
                     this.state.currentDataType, this.state.currentDataCategory, "is_tracked")
