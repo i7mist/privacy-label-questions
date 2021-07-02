@@ -1,33 +1,55 @@
 import React from "react";
-import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
-import {dataCategoryTooltip, dataTypeIconMapping} from "./data";
+import Tooltip from '@material-ui/core/Tooltip';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {dataCategoryTooltip} from "./data";
+import { withStyles } from '@material-ui/core/styles';
+
 
 export class CategoryTooltip extends React.Component {
     constructor() {
         super();
         this.state = {
-            show: false
+            open: false
         }
         this.myRef = React.createRef();
-        // const target = useRef(null);
     }
 
     render() {
+        const handleTooltipClose = () => {
+            this.setState({
+                open: false
+            })
+        };
+
+        const handleTooltipOpen = () => {
+            this.setState({
+                open: true
+            })
+            this.props.logData("useTooltip", {"dataCategory": this.props.dataCategory})
+        };
+
+        const LightTooltip = withStyles((theme) => ({
+            tooltip: {
+                backgroundColor: theme.palette.common.white,
+                color: 'rgba(0, 0, 0, 0.65)',
+                boxShadow: theme.shadows[4],
+                fontSize: 13,
+            },
+        }))(Tooltip);
+
         return (
             <span>
-                <span className={this.props.tooltipStyle} ref={this.myRef}
-                                      onClick={() => {
-                                          this.setState({show: !this.state.show})
-                                          this.props.logData("useTooltip", {"dataCategory": this.props.dataCategory})
-                                      }}>?</span>
-                <Overlay target={this.myRef.current} show={this.state.show} placement="right">
-                    {(props) => (
-                        <Tooltip id={"overlay-example"} {...props}>
-                            {dataCategoryTooltip[this.props.dataCategory]}
-                        </Tooltip>
-                    )}
-                </Overlay>
+                <ClickAwayListener onClickAway={handleTooltipClose}>
+                    <span>
+                        <LightTooltip
+                            PopperProps={{disablePortal: true,}} onClose={handleTooltipClose} open={this.state.open}
+                            disableFocusListener disableHoverListener disableTouchListener
+                            title={dataCategoryTooltip[this.props.dataCategory]}
+                            placement="bottom">
+                        <span className={this.props.tooltipStyle} onClick={handleTooltipOpen}>?</span>
+                        </LightTooltip>
+                    </span>
+              </ClickAwayListener>
             </span>
         )
     }
