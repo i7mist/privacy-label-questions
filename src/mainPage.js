@@ -87,6 +87,39 @@ export class MainPage extends React.Component {
             showLogs: false,
             showLabel: true
         }
+        function getSelectionText() {
+            var text = "";
+            var activeEl = document.activeElement;
+            var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+            if (
+                (activeElTagName === "textarea") || ((activeElTagName === "input" &&
+                /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+                (typeof activeEl.selectionStart == "number"))
+            ) {
+                text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+            } else if (window.getSelection) {
+                text = window.getSelection().toString();
+            }
+            return text;
+        }
+
+        let logSelectedText = (text) => {
+            if (text === "") {
+                return
+            }
+            let selectedTextList
+            if (localStorage.getItem("selectedTextList") !== null) {
+                selectedTextList = JSON.parse(localStorage.getItem("selectedTextList"))
+            } else {
+                selectedTextList = []
+            }
+            selectedTextList.push(text)
+            localStorage.setItem("selectedTextList", JSON.stringify(selectedTextList))
+        }
+
+        document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+            logSelectedText(getSelectionText());
+        };
     }
 
     render() {
