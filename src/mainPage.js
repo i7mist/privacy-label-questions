@@ -127,7 +127,7 @@ export class MainPage extends React.Component {
             if (text === "") {
                 return
             }
-            this.logData("selectedTextList", text)
+            this.logData("textSelection", text)
         }
 
         document.onmouseup = document.onkeyup = document.onselectionchange = function() {
