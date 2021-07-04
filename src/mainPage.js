@@ -130,12 +130,7 @@ export class MainPage extends React.Component {
             this.logData("textSelection", text)
         }
 
-        document.onmouseup = document.onkeyup = document.onselectionchange = function() {
-            logSelectedText(getSelectionText());
-        };
-
-        document.onmousemove = handleMouseMove;
-        function handleMouseMove(event) {
+        let logMouseMovement = (event, action) => {
             var eventDoc, doc, body;
 
             event = event || window.event; // IE-ism
@@ -156,9 +151,22 @@ export class MainPage extends React.Component {
                     ((doc && doc.clientTop)  || (body && body.clientTop)  || 0 );
             }
 
-            // console.log(event.pageY, event.pageX)
-            // Use event.pageX / event.pageY here
+            this.logData("mouseMove", {"event.pageX": event.pageX, "event.pageY": event.pageY})
         }
+
+        document.onselectionchange = function() {
+            logSelectedText(getSelectionText());
+        };
+
+        document.onmouseup = (event) => {
+            logMouseMovement(event, "mouseUp")
+            logSelectedText(getSelectionText());
+        }
+
+        document.onmousemove = (event) => {
+            logMouseMovement(event, "mouseMove")
+        };
+
     }
 
     render() {
