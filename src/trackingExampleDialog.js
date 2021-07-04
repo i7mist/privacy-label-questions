@@ -12,7 +12,8 @@ export class TrackingExampleDialog extends React.Component {
                 <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
                                  logData={this.props.logData}/>
             </div>
-            <div className="my-modal-body description-text">
+            <div className="my-modal-body description-text" id={"tracking-example-dialog"}
+                 onScroll={()=>this.props.logScroll("tracking-example-dialog")}>
                 <div>
                     To help put tracking into context, here are a few examples:
                 </div>

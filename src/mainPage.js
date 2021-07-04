@@ -80,6 +80,13 @@ export class MainPage extends React.Component {
             localStorage.setItem("privacyAnswers", JSON.stringify(this.state.privacyAnswers))
         }
 
+        this.logScroll = (elementId) => {
+            let element = document.getElementById(elementId)
+            this.logData("scroll-" + elementId, {"scrollTop": element.scrollTop,
+                "scrollHeight": element.scrollHeight, "offsetHeight": element.offsetHeight,
+                "clientHeight": element.clientHeight})
+        }
+
         this.state = {
             participantID: null,
             privacyAnswers: localStorage.getItem("privacyAnswers") === null ? [] : JSON.parse(localStorage.getItem("privacyAnswers")),
@@ -323,6 +330,7 @@ export class MainPage extends React.Component {
                     cancelCollectionDialog={cancelDataCollectionDialog}
                     openTypeDialog={openDataTypeDialog}
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     clickSave={() => {
                         let rootDiv = document.getElementById("dataCollectionQuestion")
                         let choices = rootDiv.getElementsByTagName("input")
@@ -350,6 +358,7 @@ export class MainPage extends React.Component {
                     checkedDataCategories={this.state.checkedDataCategories}
                     onChangeCheckedDataCategories={onChangeCheckedDataCategories}
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     clickSave={() => {
                         let oldCategoryInfo = {}
                         let i, j;
@@ -403,6 +412,7 @@ export class MainPage extends React.Component {
                 />
                 <SetUpDataPurposeDialog
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     dialogDisplay={this.state.setDataCollectionPurposeDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -418,6 +428,7 @@ export class MainPage extends React.Component {
                 />
                 <SetUpDataLinkedDialog
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     dialogDisplay={this.state.setDataCollectionLinkedDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -446,6 +457,7 @@ export class MainPage extends React.Component {
                 />
                 <TrackingDefinitionDialog
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     dialogDisplay={this.state.trackingDefinitionDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -469,6 +481,7 @@ export class MainPage extends React.Component {
                 />
                 <TrackingExampleDialog
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     dialogDisplay={this.state.trackingExampleDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}
@@ -483,6 +496,7 @@ export class MainPage extends React.Component {
                 />
                 <SetUpDataTrackingDialog
                     logData={this.logData}
+                    logScroll={this.logScroll}
                     dialogDisplay={this.state.setUpDataTrackingDialogDisplay}
                     dataType={this.state.currentDataType}
                     dataCategory={this.state.currentDataCategory}

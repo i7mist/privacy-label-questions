@@ -18,7 +18,8 @@ export class DataCollectionDialog extends React.Component {
                 <div className="my-modal-heading">
                     <h3>Data Collection</h3>
                 </div>
-                <div className="my-modal-body description-text">
+                <div className="my-modal-body description-text" id={"data-collection-dialog"}
+                     onScroll={()=>this.props.logScroll("data-collection-dialog")}>
                     Thanks for helping users understand your app's privacy practices. Remember that you're responsible
                     for any third-party code that is added to your app, so if your third-party partners collect data
                     from your app, you must represent that in your responses.

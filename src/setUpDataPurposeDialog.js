@@ -13,7 +13,8 @@ export class SetUpDataPurposeDialog extends React.Component {
                     <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
                                      logData={this.props.logData}/>
                 </div>
-                <div className="my-modal-body description-text">
+                <div className="my-modal-body description-text" id={"setup-data-purpose-dialog"}
+                     onScroll={()=>this.props.logScroll("setup-data-purpose-dialog")}>
                     <div>
                         Indicate how {dataCategoryPluralFormMapping[this.props.dataCategory]} collected from this app are being used by you or your third-party partners (select all that apply):
                     </div>

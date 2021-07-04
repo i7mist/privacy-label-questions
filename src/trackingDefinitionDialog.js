@@ -13,7 +13,8 @@ export class TrackingDefinitionDialog extends React.Component {
                 <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
                                  logData={this.props.logData}/>
             </div>
-            <div className="my-modal-body description-text">
+            <div className="my-modal-body description-text" id={"tracking-definition-dialog"}
+                 onScroll={()=>this.props.logScroll("tracking-definition-dialog")}>
                 <div>
                     Let's define two important terms before continuing.
                 </div>

@@ -35,7 +35,8 @@ export class SetUpDataLinkedDialog extends React.Component {
                 <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
                                  logData={this.props.logData}/>
             </div>
-            <div className="my-modal-body description-text">
+            <div className="my-modal-body description-text" id={"setup-data-linked-dialog"}
+                 onScroll={()=>this.props.logScroll("setup-data-linked-dialog")}>
                 <div>
                     Next, indicate if the data collected from this app is linked to the user’s identity (via their account, device, or details).
                 </div>

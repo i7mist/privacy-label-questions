@@ -16,7 +16,8 @@ export class SetUpDataTrackingDialog extends React.Component {
                 <CategoryTooltip tooltipStyle={"question-mark-circle-large"} dataCategory={this.props.dataCategory}
                                  logData={this.props.logData}/>
             </div>
-            <div className="my-modal-body description-text">
+            <div className="my-modal-body description-text" id={"setup-data-tracking-dialog"}
+                 onScroll={()=>this.props.logScroll("setup-data-tracking-dialog")}>
                 <div>
                     Finally, indicate if {dataCategoryPluralFormMapping[this.props.dataCategory]} will be used for tracking purposes.
                 </div>

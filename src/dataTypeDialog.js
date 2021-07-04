@@ -10,7 +10,8 @@ export class DataTypeDialog extends React.Component {
                 <div className="my-modal-heading">
                     <h3>Data Collection</h3>
                 </div>
-                <div className="my-modal-body">
+                <div className="my-modal-body" id={"data-type-dialog"}
+                     onScroll={()=>this.props.logScroll("data-type-dialog")}>
                     <DataTypeText logData={this.props.logData}/>
                     <hr className="solid"/>
                     {dataTypeOrderList.map((dataType) =>
