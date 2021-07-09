@@ -10,6 +10,7 @@ import {TrackingDefinitionDialog} from "./trackingDefinitionDialog";
 import {TrackingExampleDialog} from "./trackingExampleDialog";
 import {SetUpDataTrackingDialog} from "./setUpDataTrackingDialog";
 import {ProductPagePreview} from "./productPagePreview";
+import {PreviewDetailsDialog} from "./previewDetailsDialog";
 
 const initPrivacyAnswers = [
     {
@@ -95,6 +96,7 @@ export class MainPage extends React.Component {
             setDataCollectionPurposeDialogDisplay: false,
             trackingDefinitionDialogDisplay: false,
             trackingExampleDialogDisplay: false,
+            previewDetailsDialogDisplay: false,
             setUpDataTrackingDialogDisplay: false,
             checkedDataCategories: [],
             currentDataType: null,
@@ -247,7 +249,11 @@ export class MainPage extends React.Component {
             })
             this.logData("openTrackingExampleDialog", null)
         }
-
+        {/*KR: copied trackingExampleDialog*/}
+        let openPreviewDetailsDialog = () => {
+            this.setState({previewDetailsDialogDisplay: true})
+            this.logData("openPreviewDetailsDialog", null)
+        }
         let openSetUpDataLinkedDialog = () => {
             this.setState({
                 setDataCollectionLinkedDialogDisplay: true,
@@ -258,6 +264,8 @@ export class MainPage extends React.Component {
                 "currentDataCategory": this.state.currentDataCategory,
                 "selectedForTracking": this.state.selectedLinked})
         };
+
+
 
         let onChangeCheckedDataCategories = (categoryId) => {
             return () => {
@@ -502,6 +510,19 @@ export class MainPage extends React.Component {
                     openTrackingDefinitionDialog={openTrackingDefinitionDialog}
                     openSetUpDataTrackingDialog={openSetUpDataTrackingDialog}
                 />
+                {/*KR added w/ just copy pasta*/}
+                <PreviewDetailsDialog
+                    privacyAnswers={this.state.privacyAnswers}
+                    logData={this.logData}
+                    logScroll={this.logScroll}
+                    dialogDisplay={this.state.previewDetailsDialogDisplay}
+                    donePreviewDetailsDialog={() => {
+                        this.setState({
+                            previewDetailsDialogDisplay: false
+                        })
+                        this.logData("donePreviewDetailsDialog", null)
+                    }}
+                />
                 <SetUpDataTrackingDialog
                     logData={this.logData}
                     logScroll={this.logScroll}
@@ -566,7 +587,10 @@ export class MainPage extends React.Component {
                                                           clickShowLogs={clickShowLogs} showLogs={this.state.showLogs}/>}
                 {this.state.showLogs && <ShowLogs/>}
                 {this.state.showLabel && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
-                    <ProductPagePreview privacyAnswers={this.state.privacyAnswers}/> : null)}
+                    <ProductPagePreview
+                        privacyAnswers={this.state.privacyAnswers}
+                        openPreviewDetailsDialog={openPreviewDetailsDialog}
+                    /> : null)}
                 {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}
                                          privacyAnswers={this.state.privacyAnswers}

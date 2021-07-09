@@ -53,7 +53,8 @@ export class ProductPagePreview extends React.Component {
                 {showProductPagePreview && <div>
                     <div>
                         <h5 className={"display-inline-block"}>Product Page Preview</h5>
-                        {/*<button className="display-inline-block button-link">See Details</button>*/}
+                        {<button className="display-inline-block button-link" onClick={() => {
+                            this.props.openPreviewDetailsDialog()}}>See Details</button>}
                     </div>
                     <div className={"row"}>
                         {dataNotCollected && <div className="col product-page-preview-display-box">
@@ -74,7 +75,7 @@ export class ProductPagePreview extends React.Component {
                             <div className="product-page-preview-display-box-content">
                                 {dataForTrackingList.map((dataType) => <div>
                                     <img className="display-inline-block icon-style" src={dataTypeIconMapping[dataType]}
-                                                                            alt={dataType}/> {dataType}</div>)}
+                                         alt={dataType}/> {dataType}</div>)}
                             </div>
                         </div>}
                         {dataLinkedList.length > 0 && <div className="col product-page-preview-display-box">
