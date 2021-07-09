@@ -15,7 +15,6 @@ export class PreviewDetailsDialog extends React.Component {
         let dataForTrackingList = []
         let dataForTrackingList2 = []
         let dataForTrackingList3 = []
-        let categoryTrackedList = []
         let dataNotCollected = (this.props.privacyAnswers.length > 0) && (this.props.privacyAnswers[0] === null)
         for (i = 0; i < this.props.privacyAnswers.length; ++i) {
             if (this.props.privacyAnswers[i] === null) {
@@ -27,6 +26,7 @@ export class PreviewDetailsDialog extends React.Component {
             let is_dataType_not_linked = false
             let is_dataType_tracked = false
             let is_dataCategory_tracked = false
+            let categoryTrackedList = []
             for (j = 0; j < dataCategoryInfoList.length; ++j) {
                 let dataCategory = Object.keys(dataCategoryInfoList[j])[0]
                 let is_linked = JSON.parse(JSON.stringify(dataCategoryInfoList[j][dataCategory]["is_linked"]))
@@ -80,9 +80,17 @@ export class PreviewDetailsDialog extends React.Component {
                     </div>
                     <div>
                         TESTING TRACKING ADJUSTMENTS
-                        {console.log("list version 1",  dataForTrackingList)}
-                        {console.log("Tracking list version 2", dataForTrackingList2)}
-                        {console.log("Tracking list version 3", dataForTrackingList3)}
+                        {dataForTrackingList2.map((item, index) => (
+                            <div key={index}>
+                                <img className="icon-style" src={dataTypeIconMapping[item.dataType]} alt={item.dataType}/> {item.dataType}
+                                {item.dataType.map((c, i) => (
+                                    <div key={i}>
+                                        c.dataCategory
+                                        <hr />
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
                     </div>
                 </div>}
                 <br/>
