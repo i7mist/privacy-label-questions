@@ -390,18 +390,23 @@ hr.solid {
 }
 
 .preview-details-area-header {
+    padding-top: 10px;
     font-weight: 500;
 }
 
 .preview-details-area-datatypes {
-    color: #555555;
+    color: black;
     font-weight: 500;
     font-size: small;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .preview-details-area-datacategories {
     color: #555555;
+    font-weight: normal;
     font-size: small;
+    margin-left: 20px;
 }
 
 /*End preview details*/
