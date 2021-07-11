@@ -379,18 +379,18 @@ hr.solid {
 .preview-details-area {
     text-align: left;
     border-bottom: 0.1px solid #bbb;
-    padding-bottom: 25px;
-    padding-top: 25px;
+    padding-bottom: 15px;
+    padding-top: 15px;
     color: black;
 }
 .preview-details-area-title {
+    font-size: larger;
     font-weight: 500;
-    padding-bottom: 50px;
-    border-bottom: none;
+    padding-bottom: 10px;
 }
 
 .preview-details-area-header {
-    padding-top: 10px;
+    padding-top: 5px;
     font-weight: 500;
 }
 
@@ -398,8 +398,8 @@ hr.solid {
     color: black;
     font-weight: 500;
     font-size: small;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .preview-details-area-datacategories {
