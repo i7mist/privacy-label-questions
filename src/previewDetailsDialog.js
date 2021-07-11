@@ -59,8 +59,7 @@ export class PreviewDetailsDialog extends React.Component {
             </div>
             <div className="my-modal-body description-text" id={"preview-details-dialog"}
                  onScroll={() => this.props.logScroll("preview-details-dialog")}>
-
-                {/*tracking*/}
+                {/*1. tracking*/}
                 {dataForTrackingList.length > 0 && <div className="preview-details-area">
                     <img className="x-large-icon-style" src={dataUsedToTrackIcon} alt="Data Used to Track You"/>
                     <div className="preview-details-area-header">
@@ -82,7 +81,7 @@ export class PreviewDetailsDialog extends React.Component {
                     </div>
                 </div>}
                 <br/>
-                {/*linked*/}
+                {/*2. linked*/}
                 {dataLinkedList.length > 0 && <div className="preview-details-area">
                     <img className="x-large-icon-style" src={dataLinkedIcon} alt="Data Linked to You"/>
                     <div className="preview-details-area-header">
@@ -103,28 +102,7 @@ export class PreviewDetailsDialog extends React.Component {
                         ))}
                     </div>
                 </div>}
-                {/*NotLinked*/}
-                {dataNotLinkedList.length > 0 && <div className="preview-details-area">
-                    <img className="x-large-icon-style" src={dataNotLinkedIcon} alt="Data Not Linked to You"/>
-                    <div className="preview-details-area-header">
-                        Data Not Linked to You  </div>
-                    <div className="product-page-preview-display-box-description">
-                        The following data may be collected but is not linked to your identity:
-                    </div>
-                    <div>
-                        {dataNotLinkedList.map((item, index) => (
-                            <div key={index} className = "preview-details-area-datatypes">
-                                <img className="icon-style" src={dataTypeIconMapping[item.dataType]} alt={item.dataType}/> {item.dataType}
-                                {item.dataCategory.map((c, i) => (
-                                    <div key={i} className = "preview-details-area-datacategories">
-                                        {c}
-                                    </div>
-                                )) }
-                            </div>
-                        ))}
-                    </div>
-                </div>}
-                {/*NotLinked*/}
+                {/*3. NotLinked*/}
                 {dataNotLinkedList.length > 0 && <div className="preview-details-area">
                     <img className="x-large-icon-style" src={dataNotLinkedIcon} alt="Data Not Linked to You"/>
                     <div className="preview-details-area-header">

@@ -386,7 +386,7 @@ hr.solid {
 .preview-details-area-title {
     font-weight: 500;
     padding-bottom: 50px;
-    border-bottom: 0.1px solid #bbb;
+    border-bottom: none;
 }
 
 .preview-details-area-header {
