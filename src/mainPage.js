@@ -97,9 +97,13 @@ export class MainPage extends React.Component {
 
         this.logScroll = (elementId) => {
             let element = document.getElementById(elementId)
-            this.logData("scroll-" + elementId, {"scrollTop": element.scrollTop,
-                "scrollHeight": element.scrollHeight, "offsetHeight": element.offsetHeight,
-                "clientHeight": element.clientHeight})
+            let scrollSlot = Math.floor(Date.now()/40)
+            if (this.lastScrollSlot !== scrollSlot) {
+                this.logData("scroll-" + elementId, {"scrollTop": element.scrollTop,
+                    "scrollHeight": element.scrollHeight, "offsetHeight": element.offsetHeight,
+                    "clientHeight": element.clientHeight})
+                this.lastScrollSlot = scrollSlot
+            }
         }
 
         this.state = {
@@ -126,6 +130,7 @@ export class MainPage extends React.Component {
             showLabel: false
         }
         this.lastMouseMovementSlot = Math.floor(Date.now()/40)
+        this.lastScrollSlot = Math.floor(Date.now()/40)
 
         function getSelectionText() {
             var text = "";
