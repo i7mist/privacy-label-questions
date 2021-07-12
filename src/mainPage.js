@@ -11,6 +11,7 @@ import {TrackingExampleDialog} from "./trackingExampleDialog";
 import {SetUpDataTrackingDialog} from "./setUpDataTrackingDialog";
 import {ProductPagePreview} from "./productPagePreview";
 import {PreviewDetailsDialog} from "./previewDetailsDialog";
+import {LabelDetailsDialog} from "./labelDetailsDialog";
 
 const initPrivacyAnswers = [
     {
@@ -41,6 +42,8 @@ class StudyHeader extends React.Component {
                     <button className="right-btn-group" onClick={this.props.onClickPrivacyLabelDone}>Done</button>
                     <button className="right-btn-group" onClick={this.props.clickShowLogs}>
                         {this.props.showLogs ? "Hide all logs" : "Show all logs"}</button>
+                    <button className="right-btn-group" onClick={this.props.clickShowPreview}>
+                        {this.props.showPreview ? "Hide preview": "Show preview"}</button>
                     <button className="right-btn-group" onClick={this.props.clickShowLabel}>
                         {this.props.showLabel ? "Hide privacy label": "Show privacy label"}</button>
                 </div>
@@ -108,6 +111,7 @@ export class MainPage extends React.Component {
             trackingDefinitionDialogDisplay: false,
             trackingExampleDialogDisplay: false,
             previewDetailsDialogDisplay: false,
+            labelDetailsDialogDisplay: false,
             setUpDataTrackingDialogDisplay: false,
             checkedDataCategories: [],
             currentDataType: null,
@@ -118,7 +122,8 @@ export class MainPage extends React.Component {
             expandedDefinitionAndExample: false,
             isFirstBlockCompleted: false,
             showLogs: false,
-            showLabel: true
+            showPreview: true,
+            showLabel: false
         }
         this.lastMouseMovementSlot = Math.floor(Date.now()/40)
 
@@ -206,6 +211,11 @@ export class MainPage extends React.Component {
                 showLogs: !this.state.showLogs
             })
         }
+        let clickShowPreview = () => {
+            this.setState({
+                showPreview: !this.state.showPreview
+            })
+        }
         let clickShowLabel = () => {
             this.setState({
                 showLabel: !this.state.showLabel
@@ -270,6 +280,10 @@ export class MainPage extends React.Component {
         let openPreviewDetailsDialog = () => {
             this.setState({previewDetailsDialogDisplay: true})
             this.logData("openPreviewDetailsDialog", null)
+        }
+        let openLabelDetailsDialog = () => {
+            this.setState({labelDetailsDialogDisplay: true})
+            this.logData("openLabelDetailsDialog", null)
         }
         let openSetUpDataLinkedDialog = () => {
             this.setState({
@@ -540,6 +554,18 @@ export class MainPage extends React.Component {
                         this.logData("donePreviewDetailsDialog", null)
                     }}
                 />
+                <LabelDetailsDialog
+                    privacyAnswers={this.state.privacyAnswers}
+                    logData={this.logData}
+                    logScroll={this.logScroll}
+                    dialogDisplay={this.state.labelDetailsDialogDisplay}
+                    doneLabelDetailsDialog={() => {
+                        this.setState({
+                            labelDetailsDialogDisplay: false
+                        })
+                        this.logData("doneLabelDetailsDialog", null)
+                    }}
+                />
                 <SetUpDataTrackingDialog
                     logData={this.logData}
                     logScroll={this.logScroll}
@@ -600,13 +626,23 @@ export class MainPage extends React.Component {
                 {!this.state.participantID && <StudyInitPage onClickSubmitParticipantID={onClickSubmitParticipantID}/>}
                 {this.state.participantID && <StudyHeader participantID={this.state.participantID}
                                                           onClickPrivacyLabelDone={onClickPrivacyLabelDone}
-                                                          clickShowLabel={clickShowLabel} showLabel={this.state.showLabel}
+                                                          clickShowLabel={clickShowLabel}
+                                                          showLabel={this.state.showLabel}
+                                                          clickShowPreview={clickShowPreview}
+                                                          showPreview={this.state.showPreview}
                                                           clickShowLogs={clickShowLogs} showLogs={this.state.showLogs}/>}
                 {this.state.showLogs && <ShowLogs/>}
                 {this.state.showLabel && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview
                         privacyAnswers={this.state.privacyAnswers}
-                        openPreviewDetailsDialog={openPreviewDetailsDialog}
+                        openDetailsDialog={openLabelDetailsDialog}
+                        isPreview={false}
+                    /> : null)}
+                {this.state.showPreview && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
+                    <ProductPagePreview
+                        privacyAnswers={this.state.privacyAnswers}
+                        openDetailsDialog={openPreviewDetailsDialog}
+                        isPreview={true}
                     /> : null)}
                 {!this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <DataTypeEditSection clickEdit={openDataCollectionDialog}

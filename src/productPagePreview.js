@@ -52,9 +52,9 @@ export class ProductPagePreview extends React.Component {
             <div>
                 {showProductPagePreview && <div>
                     <div>
-                        <h5 className={"display-inline-block"}>Product Page Preview</h5>
+                        <h5 className={"display-inline-block"}>{this.props.isPreview ? "Product Page Preview" : "Privacy Label"}</h5>
                         {<button className="display-inline-block button-link" onClick={() => {
-                            this.props.openPreviewDetailsDialog()}}>See Details</button>}
+                            this.props.openDetailsDialog()}}>See Details</button>}
                     </div>
                     <div className={"row"}>
                         {dataNotCollected && <div className="col product-page-preview-display-box">
