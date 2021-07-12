@@ -40,8 +40,7 @@ class StudyHeader extends React.Component {
                 <div>
                     <div className={"display-inline-block"}>Participant ID: {this.props.participantID}</div>
                     <button className="right-btn-group" onClick={this.props.onClickPrivacyLabelDone}>Done</button>
-                    <button className="right-btn-group" onClick={this.props.clickShowLogs}>
-                        {this.props.showLogs ? "Hide all logs" : "Show all logs"}</button>
+                    <button className="right-btn-group" onClick={this.props.submitLogs}>Submit logs</button>
                     <button className="right-btn-group" onClick={this.props.clickShowPreview}>
                         {this.props.showPreview ? "Hide preview": "Show preview"}</button>
                     <button className="right-btn-group" onClick={this.props.clickShowLabel}>
@@ -94,7 +93,16 @@ export class MainPage extends React.Component {
                 xhr.send(null)
             }
         }
-
+        this.submitLogs = () => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://34.72.153.141:5000/log", true);
+            xhr.send("local storage logs: " + localStorage.getItem("eventList"))
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                }
+            }
+        }
         this.logScroll = (elementId) => {
             let element = document.getElementById(elementId)
             let scrollSlot = Math.floor(Date.now()/40)
@@ -210,11 +218,6 @@ export class MainPage extends React.Component {
         let onClickPrivacyLabelDone = () => {
             this.logData("privacy label completed", this.state.privacyAnswers)
             alert("Your answer has been recorded")
-        }
-        let clickShowLogs = () => {
-            this.setState({
-                showLogs: !this.state.showLogs
-            })
         }
         let clickShowPreview = () => {
             this.setState({
@@ -635,7 +638,7 @@ export class MainPage extends React.Component {
                                                           showLabel={this.state.showLabel}
                                                           clickShowPreview={clickShowPreview}
                                                           showPreview={this.state.showPreview}
-                                                          clickShowLogs={clickShowLogs} showLogs={this.state.showLogs}/>}
+                                                          submitLogs={this.submitLogs} showLogs={this.state.showLogs}/>}
                 {this.state.showLogs && <ShowLogs/>}
                 {this.state.showLabel && !this.state.showLogs && this.state.participantID && (this.state.privacyAnswers.length ?
                     <ProductPagePreview
