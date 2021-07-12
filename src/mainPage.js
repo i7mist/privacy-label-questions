@@ -177,7 +177,7 @@ export class MainPage extends React.Component {
             this.setState({
                 participantID: inputTag.value
             })
-            this.logData("submitted participant ID", null)
+            this.logData("submitted participant ID", inputTag.value)
             localStorage.setItem("participantID", inputTag.value)
         }
         let onClickPrivacyLabelDone = () => {
