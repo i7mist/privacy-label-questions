@@ -109,6 +109,8 @@ export class MainPage extends React.Component {
             showLogs: false,
             showLabel: true
         }
+        this.lastMouseMovementSlot = Math.floor(Date.now()/40)
+
         function getSelectionText() {
             var text = "";
             var activeEl = document.activeElement;
@@ -153,7 +155,11 @@ export class MainPage extends React.Component {
                     ((doc && doc.clientTop)  || (body && body.clientTop)  || 0 );
             }
 
-            this.logData("mouseMove", {"event.pageX": event.pageX, "event.pageY": event.pageY})
+            let mouseMovementSlot = Math.floor(Date.now()/40)
+            if (this.lastMouseMovementSlot !== mouseMovementSlot) {
+                this.logData("mouseMove", {"event.pageX": event.pageX, "event.pageY": event.pageY})
+                this.lastMouseMovementSlot = mouseMovementSlot
+            }
         }
 
         document.onselectionchange = function() {
