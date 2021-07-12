@@ -68,17 +68,28 @@ class ShowLogs extends React.Component {
 export class MainPage extends React.Component {
     constructor() {
         super();
-        this.logData = (event, data) => {
-            let eventList
-            if (localStorage.getItem("eventList") !== null) {
-                eventList = JSON.parse(localStorage.getItem("eventList"))
-            } else {
-                eventList = []
-            }
+        this.logData = (event, data, localStore=true) => {
             let desc = {"time": Date.now(), "event":  event, "data": data}
-            eventList.push(desc)
-            localStorage.setItem("eventList", JSON.stringify(eventList))
-            localStorage.setItem("privacyAnswers", JSON.stringify(this.state.privacyAnswers))
+            let desc_string = JSON.stringify(desc)
+            if (localStore) {
+                let eventList
+                if (localStorage.getItem("eventList") !== null) {
+                    eventList = JSON.parse(localStorage.getItem("eventList"))
+                } else {
+                    eventList = []
+                }
+                eventList.push(desc)
+                localStorage.setItem("eventList", JSON.stringify(eventList))
+                localStorage.setItem("privacyAnswers", JSON.stringify(this.state.privacyAnswers))
+            }
+            let xhr = new XMLHttpRequest();
+            if (desc_string.length >= 2000) {
+                xhr.open("POST", "http://34.72.153.141:5000/log", true);
+                xhr.send(desc_string)
+            } else {
+                xhr.open("GET", "http://34.72.153.141:5000/log?data="+desc_string, true)
+                xhr.send(null)
+            }
         }
 
         this.logScroll = (elementId) => {
@@ -157,7 +168,7 @@ export class MainPage extends React.Component {
 
             let mouseMovementSlot = Math.floor(Date.now()/40)
             if (this.lastMouseMovementSlot !== mouseMovementSlot) {
-                this.logData("mouseMove", {"event.pageX": event.pageX, "event.pageY": event.pageY})
+                this.logData("mouseMove", {"event.pageX": event.pageX, "event.pageY": event.pageY}, false)
                 this.lastMouseMovementSlot = mouseMovementSlot
             }
         }
