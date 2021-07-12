@@ -199,7 +199,7 @@ export class MainPage extends React.Component {
         }
         let onClickPrivacyLabelDone = () => {
             this.logData("privacy label completed", this.state.privacyAnswers)
-            alert("Your Answer has been recorded")
+            alert("Your answer has been recorded")
         }
         let clickShowLogs = () => {
             this.setState({
