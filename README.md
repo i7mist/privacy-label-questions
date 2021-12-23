@@ -1,8 +1,8 @@
-# A Replicate of Apple App Connect Interface for Filling out Privacy Details
+# A Replica of Apple App Connect Interface for Filling out Privacy Details
 
 See details about Apple's design of privacy details (privacy nutrition labels) [here](https://developer.apple.com/app-store/app-privacy-details/)
 
-We replicated the official web-based wizard UI for developers to fill out the privacy details soley for research purposes.
+We replicated the official web-based wizard UI for developers to fill out the privacy details solely for research purposes.
 
 ## Available Scripts
 
